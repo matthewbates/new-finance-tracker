@@ -11,7 +11,12 @@ export const TransactionItems = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 1em;
-  border: 1px solid black;
+  transition: 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background: #ddd;
+  }
 `;
 
 export const TransactionName = styled.div``;

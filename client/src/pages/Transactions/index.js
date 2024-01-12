@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import { Loader } from "../../components/Loader";
+import { Popover } from "./Popover";
 import { TransactionItem } from "./TransactionItem";
 
-export const Transactions = () => {
+export const Transactions = ({ isOpen }) => {
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -37,17 +38,18 @@ export const Transactions = () => {
             <TransactionItem key={id} name={name} amount={amount} date={date} />
           ))}
           <div
-            style={{
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
+          // style={{
+          //   position: "fixed",
+          //   top: "50%",
+          //   left: "50%",
+          //   transform: "translate(-50%, -50%)",
+          // }}
           >
-            {`Found ${transactions.length} transactions totaling in $`}
+            {/* {`Found ${transactions.length} transactions totaling in $`}
             {transactions.reduce((acc, current) => {
               return acc + current.amount;
-            }, 0)}
+            }, 0)} */}
+            <Popover />
           </div>
         </>
       )}

@@ -1,21 +1,13 @@
-import { useState } from "react";
-
 import { NavbarContainer } from "./NavbarElements";
 
 import { Burger } from "../Burger";
 import { Sidebar } from "../Sidebar";
 
-export const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
+export const Navbar = ({ isOpen, setIsOpen, toggle }) => {
   return (
     <NavbarContainer>
-      <Burger isOpen={isOpen} toggle={toggleSidebar} />
-      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}/>
+      <Burger isOpen={isOpen} toggle={toggle} />
+      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
     </NavbarContainer>
   );
 };

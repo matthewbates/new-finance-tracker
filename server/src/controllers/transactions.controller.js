@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const Transaction = require("../models/transactions.model");
 
 const postNewTransaction = (req, res, next) => {
-  // const transactionDate = req.body.date;
   const transaction = new Transaction({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
