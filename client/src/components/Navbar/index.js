@@ -15,7 +15,7 @@ export const Navbar = () => {
   return (
     <NavbarContainer>
       <Burger isOpen={isOpen} toggle={toggleSidebar} />
-      <Sidebar isOpen={isOpen} />
+      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}/>
     </NavbarContainer>
   );
 };

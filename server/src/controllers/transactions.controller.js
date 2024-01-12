@@ -32,4 +32,29 @@ const postNewTransaction = (req, res, next) => {
     });
 };
 
-module.exports = { postNewTransaction };
+const getAllTransactions = (req, res, next) => {
+  Transaction.find()
+    .exec()
+    .then((docs) => {
+      const response = {
+        transactions: docs.map((transaction) => {
+          return {
+            id: transaction._id,
+            name: transaction.name,
+            category: transaction.category,
+            amount: transaction.amount,
+            date: transaction.date,
+          };
+        }),
+      };
+      res.status(200).json(response);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        error: "Transaction not found!",
+      });
+    });
+};
+
+module.exports = { postNewTransaction, getAllTransactions };
