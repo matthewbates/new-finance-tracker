@@ -1,19 +1,18 @@
 import {
-  TransactionItemContainer,
-  TransactionItems,
+  TransactionContainer,
   TransactionName,
   TransactionAmount,
   TransactionDate,
+  TransactionCategory,
 } from "./TransactionItemElements";
 
-export const TransactionItem = ({ id, name, amount, date }) => {
+export const TransactionItem = ({ id, name, amount, category, date }) => {
   return (
-    <TransactionItemContainer>
-      <TransactionItems>
-        <TransactionName>{name}</TransactionName>
-        <TransactionAmount>${amount}</TransactionAmount>
-        <TransactionDate>{new Date(date).toLocaleDateString()}</TransactionDate>
-      </TransactionItems>
-    </TransactionItemContainer>
+    <TransactionContainer>
+      <TransactionName>{name}</TransactionName>
+      <TransactionCategory>{category}</TransactionCategory>
+      <TransactionDate>{new Date(date).toLocaleDateString()}</TransactionDate>
+      <TransactionAmount>${amount}</TransactionAmount>
+    </TransactionContainer>
   );
 };

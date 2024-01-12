@@ -1,26 +1,27 @@
 import styled from "styled-components";
 
-export const TransactionItemContainer = styled.div`
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
-  /* width: 100%; */
-`;
-
-export const TransactionItems = styled.div`
+export const TransactionContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 1em;
+  margin: auto;
+  align-items: center;
   transition: 0.3s ease;
   cursor: pointer;
+  padding: 1em;
 
   &:hover {
     background: #ddd;
+  }
+
+  @media screen and (min-width: 768px) {
+    max-width: 50%;
   }
 `;
 
 export const TransactionName = styled.div``;
 
-export const TransactionAmount = styled.div``;
-
 export const TransactionDate = styled.div``;
+
+export const TransactionCategory = styled.div``;
+
+export const TransactionAmount = styled.div``;

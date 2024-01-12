@@ -1,19 +1,10 @@
 import { useState } from "react";
 
-import { PopoverContainer, PopoverBtn } from "./PopoverElements";
+import { Button } from "../../../components/MUI/Button";
 
-import { Card, CardContent } from "@mui/material";
-import {
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Button,
-} from "@mui/material";
-import { categoryOptions } from "../../../utils/data";
+import { AddTransaction } from "../AddTransaction";
 
-export const Popover = () => {
+export const Popover = ({ transactions, setTransactions }) => {
   const [popover, setPopover] = useState(false);
   const [category, setCategory] = useState("");
 
@@ -40,33 +31,13 @@ export const Popover = () => {
         ADD
       </Button>
       {popover && (
-        <Card
-          sx={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
-          <CardContent
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "1em",
-            }}
-          >
-            <TextField placeholder="Name" />
-            <FormControl>
-              <InputLabel>Category</InputLabel>
-              <Select value={category} onChange={handleChange}>
-                {categoryOptions.map((item, index) => (
-                  <MenuItem value={item.value}>{item.value}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <Button variant="contained">Add</Button>
-          </CardContent>
-        </Card>
+        <AddTransaction
+          category={category}
+          handleChange={handleChange}
+          setPopover={setPopover}
+          transactions={transactions}
+          setTransactions={setTransactions}
+        />
       )}
     </>
   );

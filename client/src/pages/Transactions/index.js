@@ -34,25 +34,60 @@ export const Transactions = ({ isOpen }) => {
         <Loader />
       ) : (
         <>
-          {transactions.map(({ id, name, amount, date }) => (
-            <TransactionItem key={id} name={name} amount={amount} date={date} />
-          ))}
-          <div
-          // style={{
-          //   position: "fixed",
-          //   top: "50%",
-          //   left: "50%",
-          //   transform: "translate(-50%, -50%)",
-          // }}
-          >
-            {/* {`Found ${transactions.length} transactions totaling in $`}
-            {transactions.reduce((acc, current) => {
-              return acc + current.amount;
-            }, 0)} */}
-            <Popover />
-          </div>
+          {transactions.length === 0 ? (
+            <div
+              style={{
+                position: "absolute",
+                display: "flex",
+                textAlign: "center",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%",
+                fontWeight: "bold",
+                fontSize: "1.5em",
+              }}
+            >
+              No transactions to display.
+            </div>
+          ) : (
+            transactions.map(({ id, name, amount, category, date }) => (
+              <TransactionItem
+                key={id}
+                name={name}
+                amount={amount}
+                category={category}
+                date={date}
+              />
+            ))
+          )}
+          <Popover
+            transactions={transactions}
+            setTransactions={setTransactions}
+          />
         </>
       )}
     </>
+    // <>
+    //   {isLoading ? (
+    //     <Loader />
+    //   ) :
+    //  {transactions.length === 0 ? (<div></div>)}:
+
+    //     <>
+    //       {transactions.map(({ id, name, amount, category, date }) => (
+    //         <TransactionItem key={id} name={name} amount={amount} date={date} />
+    //       ))}
+
+    //       <Popover />
+    //     </>
+    //   )}
+    // </>
   );
 };
+
+{
+  /* {`Found ${transactions.length} transactions totaling in $`}
+            {transactions.reduce((acc, current) => {
+              return acc + current.amount;
+            }, 0)} */
+}

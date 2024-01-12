@@ -1,87 +1,74 @@
 export const categoryOptions = [
   {
+    id: 1,
     label: "🚙 Car",
     value: "🚙 Car",
     group: "Car & Transportation",
-    styles: {
-      background: "turquoise",
-    },
   },
   {
+    id: 2,
     label: "👔 Clothing",
     value: "👔 Clothing",
     group: "Shopping",
-    styles: {
-      background: "maroon",
-    },
   },
   {
+    id: 3,
     label: "🍿 Entertainment",
     value: "🍿 Entertainment",
     group: "Entertainment",
   },
   {
+    id: 4,
     label: "🛒 Groceries",
     value: "🛒 Groceries",
     group: "Food & Drink",
-    styles: { background: "plum", color: "#ffffff" },
   },
   {
+    id: 5,
     label: "🤷‍♂️ Other",
     value: "🤷‍♂️ Other",
     group: "Other",
-    styles: {
-      background: "black",
-    },
   },
   {
+    id: 6,
     label: "🏠 Rent/Mortgage",
     value: "🏠 Rent/Mortgage",
     group: "Home",
-    styles: { background: "orange" },
   },
   {
+    id: 7,
     label: "🍜 Restaurants",
     value: "🍜 Restaurants",
     group: "Food & Drink",
-    styles: { background: "plum" },
   },
   {
+    id: 8,
     label: "🛍 Shops",
     value: "🛍 Shops",
     group: "Shopping",
-    styles: {
-      background: "maroon",
-    },
   },
   {
+    id: 9,
     label: "💵 ATM Withdrawl",
     value: "💵 ATM Withdrawl",
     group: "Other",
-    styles: {
-      background: "lightgreen",
-    },
   },
   {
+    id: 10,
     label: "💳 Subscriptions",
     value: "💳 Subscriptions",
     group: "Subscriptions",
-    styles: {
-      background: "purple",
-    },
   },
   {
+    id: 11,
     label: "⛽️ Transportation",
     value: "⛽️ Transportation",
     group: "Car & Transportation",
-    styles: {
-      background: "turquoise",
-    },
   },
   {
+    id: 12,
     label: "⚡️ Utilities",
     value: "⚡️ Utilities",
     group: "Home",
-    styles: { background: "orange" },
   },
 ];
