@@ -7,6 +7,7 @@ const postNewTransaction = (req, res, next) => {
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     amount: req.body.amount,
+    category: req.body.category,
     date: req.body.date,
   });
   return transaction
@@ -19,6 +20,7 @@ const postNewTransaction = (req, res, next) => {
           _id: result._id,
           name: result.name,
           amount: result.amount,
+          category: result.category,
           date: result.date,
         },
       });
@@ -40,8 +42,8 @@ const getAllTransactions = (req, res, next) => {
           return {
             id: transaction._id,
             name: transaction.name,
-            category: transaction.category,
             amount: transaction.amount,
+            category: transaction.category,
             date: transaction.date,
           };
         }),

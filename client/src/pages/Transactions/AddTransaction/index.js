@@ -7,6 +7,7 @@ import {
   Button,
   FormControl,
   InputAdornment,
+  Input,
   InputLabel,
   MenuItem,
   Select,
@@ -14,11 +15,13 @@ import {
 } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 
+import { TransactionName } from "../TransactionName";
+import { TransactionDate } from "../TransactionDate";
+import { TransactionCategory } from "../TransactionCategory";
+
 import { categoryOptions } from "../../../utils/data";
 
 export const AddTransaction = ({
-  category,
-  handleChange,
   setPopover,
   transactions,
   setTransactions,
@@ -75,46 +78,42 @@ export const AddTransaction = ({
         transform: "translate(-50%, -50%)",
       }}
     >
-      <CardContent
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "1em",
-          margin: "2em",
-        }}
-      >
-        <form onSubmit={handleSubmit}>
-          <TextField
-            label="Transaction name"
-            value={formData.name}
-            name="name"
-            type="text"
-            onChange={handleInputChange}
+      <form onSubmit={handleSubmit}>
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1em",
+            margin: "2em",
+          }}
+        >
+          <TransactionName
+            formData={formData}
+            handleInputChange={handleInputChange}
           />
           <FormControl>
-            <InputLabel>Category</InputLabel>
+            <TransactionCategory
+              formData={formData}
+              handleInputChange={handleInputChange}
+            />
+            {/* <InputLabel>Category</InputLabel>
             <Select
+              label="Category"
               value={formData.category}
               name="category"
               onChange={(e) => handleInputChange(e)}
+              type="text"
             >
               {categoryOptions.map(({ id, value }) => (
                 <MenuItem key={id} value={value}>
                   {value}
                 </MenuItem>
               ))}
-            </Select>
+            </Select> */}
           </FormControl>
-          <TextField
-            id="date"
-            label="Date"
-            value={formData.date}
-            onChange={handleInputChange}
-            name="date"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
+          <TransactionDate
+            formData={formData}
+            handleInputChange={handleInputChange}
           />
           <TextField
             onChange={handleInputChange}
@@ -130,8 +129,8 @@ export const AddTransaction = ({
           <Button variant="contained" type="submit">
             Add
           </Button>
-        </form>
-      </CardContent>
+        </CardContent>
+      </form>
       <CancelIcon
         fontSize="medium"
         sx={{

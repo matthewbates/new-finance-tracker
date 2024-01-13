@@ -17,11 +17,11 @@ export const Transactions = ({ isOpen }) => {
         if (response) {
           setTransactions(response.data.transactions);
         }
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
       }
     };
-    return getTransactions;
+    getTransactions();
   }, []);
 
   useEffect(() => {
@@ -67,27 +67,5 @@ export const Transactions = ({ isOpen }) => {
         </>
       )}
     </>
-    // <>
-    //   {isLoading ? (
-    //     <Loader />
-    //   ) :
-    //  {transactions.length === 0 ? (<div></div>)}:
-
-    //     <>
-    //       {transactions.map(({ id, name, amount, category, date }) => (
-    //         <TransactionItem key={id} name={name} amount={amount} date={date} />
-    //       ))}
-
-    //       <Popover />
-    //     </>
-    //   )}
-    // </>
   );
 };
-
-{
-  /* {`Found ${transactions.length} transactions totaling in $`}
-            {transactions.reduce((acc, current) => {
-              return acc + current.amount;
-            }, 0)} */
-}

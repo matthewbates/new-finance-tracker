@@ -6,14 +6,9 @@ import { AddTransaction } from "../AddTransaction";
 
 export const Popover = ({ transactions, setTransactions }) => {
   const [popover, setPopover] = useState(false);
-  const [category, setCategory] = useState("");
 
   const togglePopover = () => {
     setPopover(!popover);
-  };
-
-  const handleChange = (e) => {
-    setCategory(e.target.value);
   };
 
   return (
@@ -32,8 +27,6 @@ export const Popover = ({ transactions, setTransactions }) => {
       </Button>
       {popover && (
         <AddTransaction
-          category={category}
-          handleChange={handleChange}
           setPopover={setPopover}
           transactions={transactions}
           setTransactions={setTransactions}
