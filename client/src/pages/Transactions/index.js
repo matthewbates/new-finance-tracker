@@ -2,13 +2,16 @@ import { useState, useEffect } from "react";
 
 import axios from "axios";
 
-import { Loader } from "../../components/Loader";
 import { Popover } from "./Popover";
 import { TransactionItem } from "./TransactionItem";
 
-export const Transactions = ({ isOpen }) => {
+import { Loader } from "../../components/Loader";
+import { TextField } from "../../components/MUI/TextField";
+
+export const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const getTransactions = async () => {
@@ -27,6 +30,14 @@ export const Transactions = ({ isOpen }) => {
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 2500);
   }, []);
+
+  const filteredTransactions = (transactionItem) => {
+    return transactions.filter((transaction) => {
+      return transaction.category
+        .toLocaleLowerCase()
+        .includes(searchTerm.toLocaleLowerCase());
+    });
+  };
 
   return (
     <>
@@ -50,19 +61,35 @@ export const Transactions = ({ isOpen }) => {
               No transactions to display.
             </div>
           ) : (
-            transactions.map(({ id, name, amount, category, date }) => (
+            filteredTransactions(transactions).map((item) => (
               <TransactionItem
-                key={id}
-                name={name}
-                amount={amount}
-                category={category}
-                date={date}
+                key={item.id}
+                name={item.name}
+                amount={item.amount}
+                category={item.category}
+                date={item.date}
               />
             ))
+            // transactions.map(({ id, name, amount, category, date }) => (
+            //   <TransactionItem
+            //     key={id}
+            //     name={name}
+            //     amount={amount}
+            //     category={category}
+            //     date={date}
+            //   />
+            // ))
           )}
           <Popover
             transactions={transactions}
             setTransactions={setTransactions}
+          />
+          <TextField
+            label="search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            type="text"
+            name="text"
           />
         </>
       )}

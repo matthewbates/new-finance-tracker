@@ -15,10 +15,6 @@ import {
 } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-import { TransactionName } from "../TransactionName";
-import { TransactionDate } from "../TransactionDate";
-import { TransactionCategory } from "../TransactionCategory";
-
 import { categoryOptions } from "../../../utils/data";
 
 export const AddTransaction = ({
@@ -87,16 +83,14 @@ export const AddTransaction = ({
             margin: "2em",
           }}
         >
-          <TransactionName
-            formData={formData}
-            handleInputChange={handleInputChange}
+          <TextField
+            label="Name"
+            value={formData.name}
+            name="name"
+            onChange={handleInputChange}
           />
           <FormControl>
-            <TransactionCategory
-              formData={formData}
-              handleInputChange={handleInputChange}
-            />
-            {/* <InputLabel>Category</InputLabel>
+            <InputLabel>Category</InputLabel>
             <Select
               label="Category"
               value={formData.category}
@@ -109,12 +103,18 @@ export const AddTransaction = ({
                   {value}
                 </MenuItem>
               ))}
-            </Select> */}
+            </Select>
           </FormControl>
-          <TransactionDate
+          <TextField
+            type="date"
+            value={formData.date}
+            name="date"
+            onChange={handleInputChange}
+          />
+          {/* <TransactionDate
             formData={formData}
             handleInputChange={handleInputChange}
-          />
+          /> */}
           <TextField
             onChange={handleInputChange}
             label="Amount"

@@ -6,7 +6,7 @@ import {
   TransactionCategory,
 } from "./TransactionItemElements";
 
-export const TransactionItem = ({ name, amount, category, date }) => {
+export const TransactionItem = ({ id, name, amount, category, date }) => {
   return (
     <TransactionContainer>
       <TransactionName>{name}</TransactionName>
