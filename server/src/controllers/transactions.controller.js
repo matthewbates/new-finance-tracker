@@ -15,7 +15,7 @@ const postNewTransaction = (req, res, next) => {
     .then((result) => {
       console.log(result);
       res.status(201).json({
-        message: "Transaction recorded successfully!",
+        message: "Transaction recorded successfully",
         transaction: {
           _id: result._id,
           name: result.name,
@@ -53,9 +53,39 @@ const getAllTransactions = (req, res, next) => {
     .catch((err) => {
       console.log(err);
       res.status(500).json({
-        error: "Transaction not found!",
+        error: "Transaction not found",
       });
     });
 };
 
-module.exports = { postNewTransaction, getAllTransactions };
+const patchTransaction = (req, res, next) => {
+  const transactionId = req.params.transactionId;
+
+  Transaction.findOneAndUpdate(
+    { _id: transactionId },
+    { $set: { category: req.body.category } }
+  )
+    .exec()
+    .then((updatedTransaction) => {
+      if (!updatedTransaction) {
+        return res.status(404).json({
+          message: "Transaction not found",
+        });
+      }
+      res.status(200).json({
+        message: "Category updated successfully",
+        updatedTransaction: {
+          _id: updatedTransaction.id,
+          category: updatedTransaction.category,
+        },
+      });
+    })
+    .catch((err) => {
+      console.log("Cannot update transaction");
+      res.status(500).json({
+        error: err,
+      });
+    });
+};
+
+module.exports = { postNewTransaction, getAllTransactions, patchTransaction };

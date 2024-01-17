@@ -8,5 +8,11 @@ const transactionsRouter = express.Router();
 transactionsRouter.post("/", transactionsController.postNewTransaction);
 // GET all transactions
 transactionsRouter.get("/", transactionsController.getAllTransactions);
+// PATCH a transaction
+// Example route definition
+transactionsRouter.patch(
+  "/:transactionId",
+  transactionsController.patchTransaction
+);
 
 module.exports = transactionsRouter;

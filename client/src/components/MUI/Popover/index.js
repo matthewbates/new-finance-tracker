@@ -34,7 +34,7 @@ export const Popover = ({ category }) => {
       <Button size="small" onClick={handleClick} variant="contained">
         {category}
       </Button>
-      <MuiPopover open={open} anchorEl={categoryOption} onClose={handleClose}>
+      <MuiPopover open={open} onClose={handleClose} anchorEl={categoryOption}>
         <Input
           type="text"
           placeholder="Search..."
