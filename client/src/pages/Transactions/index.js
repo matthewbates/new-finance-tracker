@@ -6,12 +6,10 @@ import { Popover } from "./Popover";
 import { TransactionItem } from "./TransactionItem";
 
 import { Loader } from "../../components/Loader";
-import { TextField } from "../../components/MUI/TextField";
 
 export const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const getTransactions = async () => {
@@ -30,14 +28,6 @@ export const Transactions = () => {
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 2500);
   }, []);
-
-  const filteredTransactions = (transactionItem) => {
-    return transactions.filter((transaction) => {
-      return transaction.category
-        .toLocaleLowerCase()
-        .includes(searchTerm.toLocaleLowerCase());
-    });
-  };
 
   return (
     <>
@@ -61,35 +51,19 @@ export const Transactions = () => {
               No transactions to display.
             </div>
           ) : (
-            filteredTransactions(transactions).map((item) => (
+            transactions.map(({ id, name, amount, category, date }) => (
               <TransactionItem
-                key={item.id}
-                name={item.name}
-                amount={item.amount}
-                category={item.category}
-                date={item.date}
+                key={id}
+                name={name}
+                amount={amount}
+                category={category}
+                date={date}
               />
             ))
-            // transactions.map(({ id, name, amount, category, date }) => (
-            //   <TransactionItem
-            //     key={id}
-            //     name={name}
-            //     amount={amount}
-            //     category={category}
-            //     date={date}
-            //   />
-            // ))
           )}
           <Popover
             transactions={transactions}
             setTransactions={setTransactions}
-          />
-          <TextField
-            label="search"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            type="text"
-            name="text"
           />
         </>
       )}

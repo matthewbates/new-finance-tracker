@@ -14,14 +14,12 @@ export const TransactionContainer = styled.div`
   }
 
   @media screen and (min-width: 768px) {
-    max-width: 50%;
+    max-width: 75%;
   }
 `;
 
 export const TransactionName = styled.div``;
 
 export const TransactionDate = styled.div``;
-
-export const TransactionCategory = styled.div``;
 
 export const TransactionAmount = styled.div``;

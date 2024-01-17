@@ -1,8 +1,8 @@
 import { Button as MuiButton } from "@mui/material";
 
-export const Button = ({ children, sx, variant, onClick }) => {
+export const Button = ({ children, sx, size, variant, onClick }) => {
   return (
-    <MuiButton sx={sx} variant={variant} onClick={onClick}>
+    <MuiButton sx={sx} size={size} variant={variant} onClick={onClick}>
       {children}
     </MuiButton>
   );

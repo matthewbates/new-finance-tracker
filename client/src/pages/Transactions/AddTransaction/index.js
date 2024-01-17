@@ -7,10 +7,9 @@ import {
   Button,
   FormControl,
   InputAdornment,
-  Input,
   InputLabel,
-  MenuItem,
   Select,
+  MenuItem,
   TextField,
 } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -99,9 +98,7 @@ export const AddTransaction = ({
               type="text"
             >
               {categoryOptions.map(({ id, value }) => (
-                <MenuItem key={id} value={value}>
-                  {value}
-                </MenuItem>
+                <MenuItem value={value}>{value}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -111,10 +108,6 @@ export const AddTransaction = ({
             name="date"
             onChange={handleInputChange}
           />
-          {/* <TransactionDate
-            formData={formData}
-            handleInputChange={handleInputChange}
-          /> */}
           <TextField
             onChange={handleInputChange}
             label="Amount"

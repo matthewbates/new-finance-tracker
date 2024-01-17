@@ -19,11 +19,12 @@ export const Popover = ({ transactions, setTransactions }) => {
           bottom: "10px",
           left: "50%",
           transform: "translate(-50%, -50%)",
+          width: "25%",
         }}
         variant="contained"
         onClick={togglePopover}
       >
-        ADD
+        Add
       </Button>
       {popover && (
         <AddTransaction
