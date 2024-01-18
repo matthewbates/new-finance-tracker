@@ -43,7 +43,7 @@ export const Transactions = () => {
                 textAlign: "center",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-50%, -50%",
+                transform: "translate(-50%, -50%)",
                 fontWeight: "bold",
                 fontSize: "1.5em",
               }}
@@ -51,15 +51,10 @@ export const Transactions = () => {
               No transactions to display.
             </div>
           ) : (
-            transactions.map(({ id, name, amount, category, date }) => (
-              <TransactionItem
-                key={id}
-                name={name}
-                amount={amount}
-                category={category}
-                date={date}
-              />
-            ))
+            <TransactionItem
+              transactions={transactions}
+              setTransactions={setTransactions}
+            />
           )}
           <Popover
             transactions={transactions}

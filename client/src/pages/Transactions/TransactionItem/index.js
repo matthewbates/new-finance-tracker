@@ -7,13 +7,19 @@ import {
 
 import { Popover } from "../../../components/MUI/Popover";
 
-export const TransactionItem = ({ name, amount, category, date }) => {
+export const TransactionItem = ({ transactions, setTransactions }) => {
   return (
-    <TransactionContainer>
-      <TransactionName>{name}</TransactionName>
-      <Popover category={category} />
-      <TransactionDate>{new Date(date).toLocaleDateString()}</TransactionDate>
-      <TransactionAmount>${amount}</TransactionAmount>
-    </TransactionContainer>
+    <>
+      {transactions.map(({ id, name, category, date, amount }) => (
+        <TransactionContainer key={id}>
+          <TransactionName>{name}</TransactionName>
+          <Popover id={id} category={category} setTransactions={setTransactions}/>
+          <TransactionDate>
+            {new Date(date).toLocaleDateString()}
+          </TransactionDate>
+          <TransactionAmount>${amount}</TransactionAmount>
+        </TransactionContainer>
+      ))}
+    </>
   );
 };

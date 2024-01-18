@@ -5,13 +5,12 @@ export const TransactionContainer = styled.div`
   justify-content: space-between;
   margin: auto;
   align-items: center;
-  transition: 0.3s ease;
   cursor: pointer;
   padding: 1em;
 
-  &:hover {
+  /* &:hover {
     background: #ddd;
-  }
+  } */
 
   @media screen and (min-width: 768px) {
     max-width: 75%;

@@ -15,7 +15,7 @@ export const Navbar = ({
     <NavbarContainer>
       <Burger isOpen={isOpen} toggleSidebar={toggleSidebar} theme={theme} />
       <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} theme={theme} />
     </NavbarContainer>
   );
 };

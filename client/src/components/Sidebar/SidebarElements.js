@@ -30,6 +30,7 @@ export const SidebarLink = styled(Link)`
   &:hover {
     background: #ddd;
   }
+
   &:nth-child(2) {
     border-top: 1px solid #a9adc1;
   }
