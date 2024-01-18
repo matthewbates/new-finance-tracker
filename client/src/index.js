@@ -3,12 +3,15 @@ import { BrowserRouter } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import ThemeProvider from "./components/Provider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
-  // </React.StrictMode>
+  </React.StrictMode>
 );

@@ -7,7 +7,7 @@ export const SidebarContainer = styled.div`
   width: 100%;
   transition: 0.3s linear;
   overflow: hidden;
-  border-bottom: ${({ $isOpen }) => $isOpen && "1px solid #000000"};
+  border-bottom: ${({ $isOpen }) => $isOpen && "1px solid #a9adc1"};
   z-index: 2;
 `;
 
@@ -31,6 +31,6 @@ export const SidebarLink = styled(Link)`
     background: #ddd;
   }
   &:nth-child(2) {
-    border-top: 1px solid #000000;
+    border-top: 1px solid #a9adc1;
   }
 `;
