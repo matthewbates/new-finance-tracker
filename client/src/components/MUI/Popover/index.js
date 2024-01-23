@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { MenuItem, Popover as MuiPopover } from "@mui/material";
+import { Menu, MenuItem, Popover as MuiPopover } from "@mui/material";
 import axios from "axios";
 
 import { Input } from "./PopoverElements";
@@ -8,10 +8,10 @@ import { Input } from "./PopoverElements";
 import { Button } from "../Button";
 import { categoryOptions } from "../../../utils/data";
 
-export const Popover = ({ id, category, setTransactions }) => {
+export const Popover = ({ id, category, transactions, setTransactions }) => {
   const [categoryOption, setCategoryOption] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [updatedCategory, setUpdatedCategory] = useState("");
+  const [categoryUpdate, setCategoryUpdate] = useState("");
 
   const handleClick = (e) => {
     setCategoryOption(e.currentTarget);
@@ -31,31 +31,29 @@ export const Popover = ({ id, category, setTransactions }) => {
     setSearchTerm(e.target.value);
   };
 
-  const patchTransaction = async (updatedCat) => {
+  const patchTransaction = async (newCategory) => {
     try {
       const response = await axios.patch(
         `http://localhost:8000/transactions/${id}`,
         {
-          category: updatedCat,
+          category: newCategory,
         }
       );
       if (response) {
         const _id = response.data.updatedTransaction._id;
-
+        const updatedTransaction = transactions.map((transaction) =>
+          transaction.id === id
+            ? { ...transaction, category: newCategory }
+            : transaction
+        );
         if (id === _id) {
-          setUpdatedCategory((prevCategory) => ({
-            ...prevCategory,
-            category: updatedCategory,
+          console.log(`Transaction ID: ${id}, Mongoose ID: ${_id}`);
+          setCategoryUpdate((prevCat) => ({
+            ...prevCat,
+            category: categoryUpdate,
           }));
-
-          setTransactions((transactions) =>
-            transactions.map((transaction) =>
-              transaction.id === id
-                ? { ...transaction, category: updatedCat }
-                : transaction
-            )
-          );
         }
+        setTransactions(updatedTransaction);
       }
     } catch (error) {
       console.log(error);
@@ -67,7 +65,7 @@ export const Popover = ({ id, category, setTransactions }) => {
       <Button size="small" onClick={handleClick} variant="contained">
         {category}
       </Button>
-      <MuiPopover open={open} onClose={handleClose} anchorEl={categoryOption}>
+      <Menu open={open} onClose={handleClose} anchorEl={categoryOption}>
         <Input
           type="text"
           placeholder="Search..."
@@ -83,7 +81,7 @@ export const Popover = ({ id, category, setTransactions }) => {
             </MenuItem>
           ))
         )}
-      </MuiPopover>
+      </Menu>
     </>
   );
 };

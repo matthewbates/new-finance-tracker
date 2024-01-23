@@ -30,7 +30,7 @@ export default function App() {
         <Route path="/" element={<Home isOpen={isOpen} />} />
         <Route
           path="/transactions"
-          element={<Transactions isOpen={isOpen} />}
+          element={<Transactions isOpen={isOpen} theme={theme} />}
         />
       </Routes>
     </div>

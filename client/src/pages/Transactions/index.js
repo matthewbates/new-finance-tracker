@@ -7,9 +7,11 @@ import { TransactionItem } from "./TransactionItem";
 
 import { Loader } from "../../components/Loader";
 
-export const Transactions = () => {
+export const Transactions = ({ theme }) => {
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
   useEffect(() => {
     const getTransactions = async () => {
@@ -32,7 +34,7 @@ export const Transactions = () => {
   return (
     <>
       {isLoading ? (
-        <Loader />
+        <Loader theme={theme} />
       ) : (
         <>
           {transactions.length === 0 ? (
@@ -54,6 +56,10 @@ export const Transactions = () => {
             <TransactionItem
               transactions={transactions}
               setTransactions={setTransactions}
+              currentMonth={currentMonth}
+              setCurrentMonth={setCurrentMonth}
+              currentYear={currentYear}
+              setCurrentYear={setCurrentYear}
             />
           )}
           <Popover

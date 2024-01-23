@@ -5,16 +5,16 @@ export const SidebarContainer = styled.div`
   position: absolute;
   top: 80px;
   width: 100%;
-  transition: 0.3s linear;
   overflow: hidden;
   border-bottom: ${({ $isOpen }) => $isOpen && "1px solid #a9adc1"};
-  z-index: 2;
+  z-index: 10;
 `;
 
 export const SidebarItems = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  transition: 0.3s linear;
 `;
 
 export const SidebarLink = styled(Link)`
@@ -23,6 +23,8 @@ export const SidebarLink = styled(Link)`
   flex-direction: column;
   text-decoration: none;
   background: #ffffff;
+  /* background: ${({ theme }) =>
+    theme === "light" ? "" : "rgba(255, 255, 255, 0.12)"}; */
   color: #000000;
   cursor: pointer;
   transition: 0.3s ease;

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import dayjs from "dayjs";
 
 import {
   Card,
@@ -28,14 +29,18 @@ export const AddTransaction = ({
     date: "",
   });
 
+  const { name, amount, category, date } = formData;
+
   const postTransaction = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:8000/transactions",
-        formData
-      );
+      const formattedDate = dayjs(formData.date).format("YYYY-MM-DDTHH:mm:ssZ");
+      const response = await axios.post("http://localhost:8000/transactions", {
+        ...formData,
+        date: formattedDate,
+      });
       if (response) {
         console.log(response.data.transaction);
+        console.log(dayjs);
         setFormData({
           name: "",
           amount: "",
@@ -84,7 +89,7 @@ export const AddTransaction = ({
         >
           <TextField
             label="Name"
-            value={formData.name}
+            value={name}
             name="name"
             onChange={handleInputChange}
           />
@@ -92,26 +97,28 @@ export const AddTransaction = ({
             <InputLabel>Category</InputLabel>
             <Select
               label="Category"
-              value={formData.category}
+              value={category}
               name="category"
               onChange={(e) => handleInputChange(e)}
               type="text"
             >
               {categoryOptions.map(({ id, value }) => (
-                <MenuItem value={value}>{value}</MenuItem>
+                <MenuItem key={id} value={value}>
+                  {value}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
           <TextField
             type="date"
-            value={formData.date}
+            value={date}
             name="date"
             onChange={handleInputChange}
           />
           <TextField
             onChange={handleInputChange}
             label="Amount"
-            value={formData.amount}
+            value={amount}
             name="amount"
             InputProps={{
               startAdornment: (

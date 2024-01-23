@@ -7,6 +7,12 @@ export const TransactionContainer = styled.div`
   align-items: center;
   cursor: pointer;
   padding: 1em;
+  border-bottom: 1px solid black;
+  font-size: 14px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+  }
 
   /* &:hover {
     background: #ddd;
@@ -21,4 +27,6 @@ export const TransactionName = styled.div``;
 
 export const TransactionDate = styled.div``;
 
-export const TransactionAmount = styled.div``;
+export const TransactionAmount = styled.div`
+  font-weight: bold;
+`;

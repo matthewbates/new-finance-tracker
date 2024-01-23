@@ -1,11 +1,12 @@
 import { useRef, useEffect } from "react";
 
-import { Link } from "react-router-dom";
-
 import { SidebarContainer, SidebarItems, SidebarLink } from "./SidebarElements";
+
+import { useClickOutside } from "../../utils/hooks";
 
 export const Sidebar = ({ isOpen, setIsOpen }) => {
   const linkRef = useRef(null);
+  const sidebarRef = useRef(null);
 
   useEffect(() => {
     if (linkRef.current) {
@@ -15,9 +16,13 @@ export const Sidebar = ({ isOpen, setIsOpen }) => {
     }
   }, [isOpen]);
 
+  useClickOutside(sidebarRef, () => {
+    setIsOpen(false);
+  });
+
   return (
-    <SidebarContainer $isOpen={isOpen} ref={linkRef}>
-      <SidebarItems>
+    <SidebarContainer $isOpen={isOpen} ref={sidebarRef}>
+      <SidebarItems ref={linkRef}>
         <SidebarLink to="/" onClick={() => setIsOpen(false)}>
           Home
         </SidebarLink>

@@ -1,6 +1,8 @@
 import { IconButton } from "@mui/material";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness5Icon from "@mui/icons-material/Brightness5";
 import { Tooltip } from "../MUI/Tooltip";
 
 export const ThemeToggle = ({ theme, toggleTheme }) => {
@@ -15,13 +17,12 @@ export const ThemeToggle = ({ theme, toggleTheme }) => {
         sx={{
           marginRight: "0.5em",
           color: theme === "light" ? "#263238" : "#ffffff",
-          border: `2px solid ${theme === "light" ? "#263238" : "#ffffff"}`,
         }}
       >
         {theme === "light" ? (
-          <LightModeIcon sx={{}} fontSize="small" />
+          <Brightness5Icon fontSize="medium" />
         ) : (
-          <DarkModeIcon fontSize="small" />
+          <Brightness4Icon fontSize="medium" />
         )}
       </IconButton>
     </Tooltip>
