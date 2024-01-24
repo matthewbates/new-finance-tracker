@@ -1,8 +1,3 @@
-import { useState } from "react";
-
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-
 import {
   TransactionContainer,
   TransactionName,
@@ -11,9 +6,11 @@ import {
 } from "./TransactionItemElements";
 
 import {
+  filterTransactionsByDate,
   handlePreviousMonth,
   handleNextMonth,
 } from "../../../utils/transactions/helpers";
+import { MONTHS } from "../../../utils/transactions/data";
 import { Popover } from "../../../components/MUI/Popover";
 
 export const TransactionItem = ({
@@ -23,31 +20,19 @@ export const TransactionItem = ({
   setCurrentMonth,
   currentYear,
   setCurrentYear,
+  theme,
 }) => {
-  const MONTHS = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
+  console.log(
+    filterTransactionsByDate(transactions, currentMonth, currentYear)
+  );
   return (
     <>
-      <div
+      {/* <div
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           padding: "1em",
-          border: "1px solid white",
         }}
       >
         <KeyboardArrowLeftIcon
@@ -77,22 +62,19 @@ export const TransactionItem = ({
             )
           }
         />
-      </div>
-      {transactions.map(({ id, name, category, date, amount }) => (
-        <TransactionContainer key={id}>
-          <TransactionName>{name}</TransactionName>
-          <Popover
-            id={id}
-            category={category}
-            transactions={transactions}
-            setTransactions={setTransactions}
-          />
-          <TransactionDate>
-            {new Date(date).toLocaleDateString()}
-          </TransactionDate>
-          <TransactionAmount>${amount}</TransactionAmount>
-        </TransactionContainer>
-      ))}
+      </div> */}
+      {filterTransactionsByDate(transactions, currentMonth, currentYear).map(
+        ({ id, name, category, amount, date }) => (
+          <TransactionContainer key={id}>
+            <TransactionName>{name}</TransactionName>
+            <Popover category={category} />
+            <TransactionDate>
+              {new Date(date).toLocaleDateString()}
+            </TransactionDate>
+            <TransactionAmount>${amount}</TransactionAmount>
+          </TransactionContainer>
+        )
+      )}
     </>
   );
 };

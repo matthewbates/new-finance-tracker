@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-import { categoryOptions } from "../../../utils/data";
+import { categoryOptions } from "../../../utils/transactions/data";
 
 export const AddTransaction = ({
   setPopover,
@@ -92,6 +92,7 @@ export const AddTransaction = ({
             value={name}
             name="name"
             onChange={handleInputChange}
+            required
           />
           <FormControl>
             <InputLabel>Category</InputLabel>
@@ -114,6 +115,7 @@ export const AddTransaction = ({
             value={date}
             name="date"
             onChange={handleInputChange}
+            required
           />
           <TextField
             onChange={handleInputChange}
@@ -125,6 +127,7 @@ export const AddTransaction = ({
                 <InputAdornment position="start">$</InputAdornment>
               ),
             }}
+            required
           />
           <Button variant="contained" type="submit">
             Add

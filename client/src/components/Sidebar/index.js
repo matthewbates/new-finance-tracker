@@ -4,7 +4,7 @@ import { SidebarContainer, SidebarItems, SidebarLink } from "./SidebarElements";
 
 import { useClickOutside } from "../../utils/hooks";
 
-export const Sidebar = ({ isOpen, setIsOpen }) => {
+export const Sidebar = ({ isOpen, setIsOpen, theme }) => {
   const linkRef = useRef(null);
   const sidebarRef = useRef(null);
 
@@ -22,11 +22,15 @@ export const Sidebar = ({ isOpen, setIsOpen }) => {
 
   return (
     <SidebarContainer $isOpen={isOpen} ref={sidebarRef}>
-      <SidebarItems ref={linkRef}>
-        <SidebarLink to="/" onClick={() => setIsOpen(false)}>
+      <SidebarItems ref={linkRef} theme={theme}>
+        <SidebarLink theme={theme} to="/" onClick={() => setIsOpen(false)}>
           Home
         </SidebarLink>
-        <SidebarLink to="/transactions" onClick={() => setIsOpen(false)}>
+        <SidebarLink
+          theme={theme}
+          to="/transactions"
+          onClick={() => setIsOpen(false)}
+        >
           Transactions
         </SidebarLink>
       </SidebarItems>

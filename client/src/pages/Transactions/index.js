@@ -1,11 +1,19 @@
 import { useState, useEffect } from "react";
 
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import axios from "axios";
 
 import { Popover } from "./Popover";
 import { TransactionItem } from "./TransactionItem";
 
 import { Loader } from "../../components/Loader";
+import { MONTHS } from "../../utils/transactions/data";
+import {
+  filterTransactionsByDate,
+  handleNextMonth,
+  handlePreviousMonth,
+} from "../../utils/transactions/helpers";
 
 export const Transactions = ({ theme }) => {
   const [transactions, setTransactions] = useState([]);
@@ -32,40 +40,99 @@ export const Transactions = ({ theme }) => {
   }, []);
 
   return (
+    // <>
+    //   {isLoading ? (
+    //     <Loader theme={theme} />
+    //   ) : (
+    //     <>
+    //       {transactions.length === 0 ? (
+    //         <div
+    //           style={{
+    //             position: "absolute",
+    //             display: "flex",
+    //             textAlign: "center",
+    //             top: "50%",
+    //             left: "50%",
+    //             transform: "translate(-50%, -50%)",
+    //             fontWeight: "bold",
+    //             fontSize: "1.5em",
+    //           }}
+    //         >
+    //           No transactions to display.
+    //         </div>
+    //       ) : (
+    //         <TransactionItem
+    //           transactions={transactions}
+    //           setTransactions={setTransactions}
+    //           currentMonth={currentMonth}
+    //           setCurrentMonth={setCurrentMonth}
+    //           currentYear={currentYear}
+    //           setCurrentYear={setCurrentYear}
+    //           theme={theme}
+    //         />
+    //       )}
+    //       <Popover
+    //         transactions={transactions}
+    //         setTransactions={setTransactions}
+    //       />
+    //     </>
+    //   )}
+    // </>
     <>
       {isLoading ? (
-        <Loader theme={theme} />
+        <Loader />
       ) : (
         <>
-          {transactions.length === 0 ? (
-            <div
-              style={{
-                position: "absolute",
-                display: "flex",
-                textAlign: "center",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                fontWeight: "bold",
-                fontSize: "1.5em",
-              }}
-            >
-              No transactions to display.
-            </div>
-          ) : (
-            <TransactionItem
-              transactions={transactions}
-              setTransactions={setTransactions}
-              currentMonth={currentMonth}
-              setCurrentMonth={setCurrentMonth}
-              currentYear={currentYear}
-              setCurrentYear={setCurrentYear}
-            />
-          )}
-          <Popover
-            transactions={transactions}
-            setTransactions={setTransactions}
-          />
+          {filterTransactionsByDate(transactions, currentMonth, currentYear) ? (
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "1em",
+                }}
+              >
+                <KeyboardArrowLeftIcon
+                  sx={{ cursor: "pointer" }}
+                  fontSize="large"
+                  onClick={() =>
+                    handlePreviousMonth(
+                      currentMonth,
+                      setCurrentMonth,
+                      currentYear,
+                      setCurrentYear
+                    )
+                  }
+                />
+                {MONTHS[currentMonth]} {currentYear}
+                <KeyboardArrowRightIcon
+                  sx={{ cursor: "pointer" }}
+                  fontSize="large"
+                  onClick={() =>
+                    handleNextMonth(
+                      currentMonth,
+                      setCurrentMonth,
+                      currentYear,
+                      setCurrentYear
+                    )
+                  }
+                />
+              </div>
+              <TransactionItem
+                transactions={transactions}
+                setTransactions={setTransactions}
+                currentMonth={currentMonth}
+                setCurrentMonth={setCurrentMonth}
+                currentYear={currentYear}
+                setCurrentYear={setCurrentYear}
+                theme={theme}
+              />
+              <Popover />
+            </>
+          ) : transactions.length === 0 ? (
+            <div></div>
+          ) : null}
         </>
       )}
     </>

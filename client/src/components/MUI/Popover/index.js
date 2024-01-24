@@ -6,7 +6,7 @@ import axios from "axios";
 import { Input } from "./PopoverElements";
 
 import { Button } from "../Button";
-import { categoryOptions } from "../../../utils/data";
+import { categoryOptions } from "../../../utils/transactions/data";
 
 export const Popover = ({ id, category, transactions, setTransactions }) => {
   const [categoryOption, setCategoryOption] = useState(null);

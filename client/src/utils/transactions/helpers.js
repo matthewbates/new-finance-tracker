@@ -1,3 +1,10 @@
+export const listTransactionsByDate = (transactions) => {
+  if (!transactions || transactions.length === 0) return {};
+
+  const sortedTransactions = transactions.sort((a, b) => b.amount - a.amount);
+  return sortedTransactions;
+};
+
 const getPreviousMonth = (currentMonth) => {
   return currentMonth === 0 ? 11 : currentMonth - 1;
 };
@@ -40,4 +47,16 @@ export const handleNextMonth = (
     getNextYear(currentYear, setCurrentYear);
   }
   setCurrentMonth(nextMonth);
+};
+
+export const filterTransactionsByDate = (
+  transactions,
+  currentMonth,
+  currentYear
+) => {
+  return transactions.filter(
+    (transaction) =>
+      new Date(transaction.date).getMonth() === currentMonth &&
+      new Date(transaction.date).getFullYear() === currentYear
+  );
 };

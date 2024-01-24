@@ -7,16 +7,16 @@ export const TransactionContainer = styled.div`
   align-items: center;
   cursor: pointer;
   padding: 1em;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #121212;
   font-size: 14px;
+
+  &:nth-child(odd) {
+    background: ${({ theme }) => (theme === "light" ? null : "#212121")};
+  }
 
   @media screen and (min-width: 768px) {
     font-size: 16px;
   }
-
-  /* &:hover {
-    background: #ddd;
-  } */
 
   @media screen and (min-width: 768px) {
     max-width: 75%;

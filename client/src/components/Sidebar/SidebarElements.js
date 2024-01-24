@@ -15,19 +15,16 @@ export const SidebarItems = styled.div`
   display: flex;
   flex-direction: column;
   transition: 0.3s linear;
+  background: ${({ theme }) => (theme === "light" ? "#ffffff" : "#212121")};
 `;
 
 export const SidebarLink = styled(Link)`
   display: flex;
   padding: 1.25em;
+  color: ${({ theme }) => (theme === "light" ? "#000000" : "#ffffff")};
   flex-direction: column;
   text-decoration: none;
-  background: #ffffff;
-  /* background: ${({ theme }) =>
-    theme === "light" ? "" : "rgba(255, 255, 255, 0.12)"}; */
-  color: #000000;
   cursor: pointer;
-  transition: 0.3s ease;
 
   &:hover {
     background: #ddd;

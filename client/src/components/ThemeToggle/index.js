@@ -1,6 +1,4 @@
 import { IconButton } from "@mui/material";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness5Icon from "@mui/icons-material/Brightness5";
 import { Tooltip } from "../MUI/Tooltip";
@@ -10,7 +8,6 @@ export const ThemeToggle = ({ theme, toggleTheme }) => {
     <Tooltip
       placement="left"
       title={theme === "light" ? "Light Mode" : "Dark Mode"}
-      sx={{ padding: "0.5em" }}
     >
       <IconButton
         onClick={toggleTheme}
