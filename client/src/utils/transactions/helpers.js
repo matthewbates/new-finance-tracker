@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export const listTransactionsByDate = (transactions) => {
   if (!transactions || transactions.length === 0) return {};
 
@@ -49,12 +51,12 @@ export const handleNextMonth = (
   setCurrentMonth(nextMonth);
 };
 
-export const filterTransactionsByDate = (
+export const transactionsForSelectedMonth = (
   transactions,
   currentMonth,
   currentYear
 ) => {
-  return transactions.filter(
+  return transactions.some(
     (transaction) =>
       new Date(transaction.date).getMonth() === currentMonth &&
       new Date(transaction.date).getFullYear() === currentYear

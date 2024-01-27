@@ -6,8 +6,7 @@ export const SidebarContainer = styled.div`
   top: 80px;
   width: 100%;
   overflow: hidden;
-  border-bottom: ${({ $isOpen }) => $isOpen && "1px solid #a9adc1"};
-  z-index: 10;
+  z-index: 1;
 `;
 
 export const SidebarItems = styled.div`
@@ -25,12 +24,4 @@ export const SidebarLink = styled(Link)`
   flex-direction: column;
   text-decoration: none;
   cursor: pointer;
-
-  &:hover {
-    background: #ddd;
-  }
-
-  &:nth-child(2) {
-    border-top: 1px solid #a9adc1;
-  }
 `;
