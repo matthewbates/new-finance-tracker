@@ -1,8 +1,3 @@
-import { useState } from "react";
-
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-
 import {
   TransactionContainer,
   TransactionName,
@@ -12,15 +7,7 @@ import {
 
 import { Popover } from "../../../components/MUI/Popover";
 
-export const TransactionItem = ({
-  transactions,
-  setTransactions,
-  currentMonth,
-  setCurrentMonth,
-  currentYear,
-  setCurrentYear,
-  theme,
-}) => {
+export const TransactionItem = ({ transactions, setTransactions, theme }) => {
   return (
     <>
       {transactions.map(({ id, name, category, date, amount }) => (

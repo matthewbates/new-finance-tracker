@@ -1,10 +1,11 @@
 import { useRef, useEffect } from "react";
 
-import { SidebarContainer, SidebarItems, SidebarLink } from "./SidebarElements";
+import { SidebarContainer, SidebarWrapper } from "./SidebarElements";
 
 import { useClickOutside } from "../../utils/hooks";
+import { Link } from "../Link";
 
-export const Sidebar = ({ isOpen, setIsOpen, theme }) => {
+export const Sidebar = ({ isOpen, setIsOpen, theme, links }) => {
   const linkRef = useRef(null);
   const sidebarRef = useRef(null);
 
@@ -22,18 +23,19 @@ export const Sidebar = ({ isOpen, setIsOpen, theme }) => {
 
   return (
     <SidebarContainer $isOpen={isOpen} ref={sidebarRef}>
-      <SidebarItems ref={linkRef} theme={theme}>
-        <SidebarLink theme={theme} to="/" onClick={() => setIsOpen(false)}>
-          Home
-        </SidebarLink>
-        <SidebarLink
-          theme={theme}
-          to="/transactions"
-          onClick={() => setIsOpen(false)}
-        >
-          Transactions
-        </SidebarLink>
-      </SidebarItems>
+      <SidebarWrapper ref={linkRef} theme={theme}>
+        {links
+          .filter((item) => (item.name !== "" ? item : null))
+          .map(({ id, name, path }) => (
+            <Link
+              key={id}
+              theme={theme}
+              to={path}
+              name={name}
+              onClick={() => setIsOpen(false)}
+            />
+          ))}
+      </SidebarWrapper>
     </SidebarContainer>
   );
 };
