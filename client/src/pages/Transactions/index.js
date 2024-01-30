@@ -1,19 +1,22 @@
 import { useState, useEffect } from "react";
 
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import axios from "axios";
 
 import { Popover } from "./Popover";
 import { TransactionItem } from "./TransactionItem";
+import { ArrowItems } from "./ArrowItems";
 
 import { Loader } from "../../components/Loader";
 import { MONTHS } from "../../utils/transactions/data";
+import { NoTransactionsText } from "../../utils/transactions/styles";
 import {
   handleNextMonth,
   handlePreviousMonth,
+  listTransactionsByMonth,
   transactionsForSelectedMonth,
 } from "../../utils/transactions/helpers";
+
+import { flexbox } from "@mui/system";
 
 export const Transactions = ({ theme }) => {
   const [transactions, setTransactions] = useState([]);
@@ -41,107 +44,46 @@ export const Transactions = ({ theme }) => {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "1em",
-        }}
-      >
-        <KeyboardArrowLeftIcon
-          fontSize="large"
-          onClick={() =>
-            handlePreviousMonth(
-              currentMonth,
-              setCurrentMonth,
-              currentYear,
-              setCurrentYear
-            )
-          }
-        />
-        {MONTHS[currentMonth]} {currentYear}
-        <KeyboardArrowRightIcon
-          fontSize="large"
-          onClick={() =>
-            handleNextMonth(
-              currentMonth,
-              setCurrentMonth,
-              currentYear,
-              setCurrentYear
-            )
-          }
-        />
-      </div>
-
-      {transactionsForSelectedMonth(transactions, currentMonth, currentYear) ? (
-        <>
+      <ArrowItems
+        currentMonth={currentMonth}
+        setCurrentMonth={setCurrentMonth}
+        currentYear={currentYear}
+        setCurrentYear={setCurrentYear}
+      />
+      {Object.keys(
+        listTransactionsByMonth(
+          transactions.filter((transaction) => {
+            return (
+              new Date(transaction.date).getMonth() === currentMonth &&
+              new Date(transaction.date).getFullYear() === currentYear
+            );
+          })
+        )
+      ).map((date) =>
+        listTransactionsByMonth(transactions)[date].map((item, index) => (
           <TransactionItem
-            transactions={transactions}
-            setTransactions={setTransactions}
-            currentMonth={currentMonth}
-            setCurrentMonth={setCurrentMonth}
-            currentYear={currentYear}
-            setCurrentYear={setCurrentYear}
+            key={index}
+            item={item}
             theme={theme}
-          />
-          <Popover />
-        </>
-      ) : (
-        <>
-          <div
-            style={{
-              position: "absolute",
-              display: "flex",
-              textAlign: "center",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              fontWeight: "bold",
-              fontSize: "1.5em",
-            }}
-          >
-            No transactions to display.
-          </div>
-          <Popover />
-        </>
-      )}
-      {/* {isLoading ? (
-        <Loader theme={theme} />
-      ) : (
-        <>
-          {transactions.length === 0 ? (
-            <div
-              style={{
-                position: "absolute",
-                display: "flex",
-                textAlign: "center",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                fontWeight: "bold",
-                fontSize: "1.5em",
-              }}
-            >
-              No transactions to display.
-            </div>
-          ) : (
-            <TransactionItem
-              transactions={transactions}
-              setTransactions={setTransactions}
-              currentMonth={currentMonth}
-              setCurrentMonth={setCurrentMonth}
-              currentYear={currentYear}
-              setCurrentYear={setCurrentYear}
-              theme={theme}
-            />
-          )}
-          <Popover
             transactions={transactions}
             setTransactions={setTransactions}
           />
-        </>
-      )} */}
+        ))
+      )}
+      {Object.keys(
+        listTransactionsByMonth(
+          transactions.filter((transaction) => {
+            return (
+              new Date(transaction.date).getMonth() === currentMonth &&
+              new Date(transaction.date).getFullYear() === currentYear
+            );
+          })
+        )
+      ).length === 0 && (
+        <NoTransactionsText>
+          No transactions for {MONTHS[currentMonth]}.
+        </NoTransactionsText>
+      )}
     </>
   );
 };

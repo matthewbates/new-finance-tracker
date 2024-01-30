@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 
 import { SidebarContainer, SidebarWrapper } from "./SidebarElements";
 
-import { useClickOutside } from "../../utils/hooks";
+import { useClickOutside } from "../../utils/globals/hooks";
 import { Link } from "../Link";
 
 export const Sidebar = ({ isOpen, setIsOpen, theme, links }) => {

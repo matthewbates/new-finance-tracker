@@ -14,7 +14,8 @@ import {
   handleSearch,
 } from "../../../utils/transactions/helpers";
 
-export const Popover = ({ id, category, transactions, setTransactions }) => {
+export const Popover = ({ item, transactions, setTransactions }) => {
+  // id, category, transactions, setTransactions
   const [categoryOption, setCategoryOption] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryUpdate, setCategoryUpdate] = useState("");
@@ -24,7 +25,7 @@ export const Popover = ({ id, category, transactions, setTransactions }) => {
   const patchTransaction = async (newCategory) => {
     try {
       const response = await axios.patch(
-        `http://localhost:8000/transactions/${id}`,
+        `http://localhost:8000/transactions/${item.id}`,
         {
           category: newCategory,
         }
@@ -32,12 +33,12 @@ export const Popover = ({ id, category, transactions, setTransactions }) => {
       if (response) {
         const _id = response.data.updatedTransaction._id;
         const updatedTransaction = transactions.map((transaction) =>
-          transaction.id === id
+          transaction.id === item.id
             ? { ...transaction, category: newCategory }
             : transaction
         );
-        if (id === _id) {
-          console.log(`Transaction ID: ${id}, Mongoose ID: ${_id}`);
+        if (item.id === _id) {
+          console.log(`Transaction ID: ${item.id}, Mongoose ID: ${_id}`);
           setCategoryUpdate((prevCat) => ({
             ...prevCat,
             category: categoryUpdate,
@@ -57,7 +58,7 @@ export const Popover = ({ id, category, transactions, setTransactions }) => {
         onClick={(e) => handleClick(e, setCategoryOption)}
         variant="contained"
       >
-        {category}
+        {item.category}
       </Button>
       <Menu
         open={open}
