@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import {
   TransactionContainer,
   TransactionName,
@@ -8,40 +10,45 @@ import {
 import { Popover } from "../../../components/MUI/Popover";
 
 export const TransactionItem = ({
-  theme,
   item,
+  theme,
   transactions,
   setTransactions,
 }) => {
+  const [showDate, setShowDate] = useState(false);
+  const { id, name, category, date, amount } = item;
+
+  useEffect(() => {
+    const adjustDate = () => {
+      setShowDate(window.innerWidth > 768);
+    };
+
+    window.addEventListener("resize", adjustDate);
+    return () => {
+      window.removeEventListener("resize", adjustDate);
+    };
+  }, []);
+
   return (
     <>
-      <TransactionContainer theme={theme}>
-        <TransactionName>{item.name}</TransactionName>
+      {!showDate && (
+        <TransactionDate>{new Date(date).toLocaleDateString()}</TransactionDate>
+      )}
+      <TransactionContainer key={id} theme={theme}>
+        <TransactionName>{name}</TransactionName>
         <Popover
-          item={item}
+          id={id}
+          category={category}
           transactions={transactions}
           setTransactions={setTransactions}
         />
-        <TransactionDate>
-          {new Date(item.date).toLocaleDateString()}
-        </TransactionDate>
-        <TransactionAmount>${item.amount}</TransactionAmount>
-      </TransactionContainer>
-      {/* {transactions.map(({ id, name, category, date, amount }) => (
-        <TransactionContainer key={id} theme={theme}>
-          <TransactionName>{name}</TransactionName>
-          <Popover
-            id={id}
-            category={category}
-            transactions={transactions}
-            setTransactions={setTransactions}
-          />
+        {showDate && (
           <TransactionDate>
             {new Date(date).toLocaleDateString()}
           </TransactionDate>
-          <TransactionAmount>${amount}</TransactionAmount>
-        </TransactionContainer>
-      ))} */}
+        )}
+        <TransactionAmount>${amount}</TransactionAmount>
+      </TransactionContainer>
     </>
   );
 };

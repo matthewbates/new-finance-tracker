@@ -31,7 +31,9 @@ export const AddTransaction = ({
 
   const { name, amount, category, date } = formData;
 
-  const postTransaction = async () => {
+  const postTransaction = async (e) => {
+    e.preventDefault();
+
     try {
       const formattedDate = dayjs(formData.date).format("YYYY-MM-DDTHH:mm:ssZ");
       const response = await axios.post("http://localhost:8000/transactions", {
@@ -39,30 +41,50 @@ export const AddTransaction = ({
         date: formattedDate,
       });
       if (response) {
-        console.log(response.data.transaction);
-        console.log(dayjs);
+        console.log(response);
         setFormData({
           name: "",
-          amount: "",
           category: "",
+          amount: "",
           date: "",
         });
         const updatedTransactions = [
           ...transactions,
-          response.data.transaction,
+          response.data.createdTransaction,
         ];
         setTransactions(updatedTransactions);
-        setPopover(false);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    postTransaction();
-  };
+  // const postTransaction = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const formattedDate = dayjs(formData.date).format("YYYY-MM-DDTHH:mm:ssZ");
+  //     const response = await axios.post("http://localhost:8000/transactions", {
+  //       ...formData,
+  //       date: formattedDate,
+  //     });
+  //     if (response) {
+  //       setFormData({
+  //         name: "",
+  //         amount: "",
+  //         category: "",
+  //         date: "",
+  //       });
+  //       const updatedTransactions = [
+  //         ...transactions,
+  //         response.data.transaction,
+  //       ];
+  //       setTransactions(updatedTransactions);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -78,7 +100,7 @@ export const AddTransaction = ({
         transform: "translate(-50%, -50%)",
       }}
     >
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={postTransaction}>
         <CardContent
           sx={{
             display: "flex",
@@ -92,7 +114,6 @@ export const AddTransaction = ({
             value={name}
             name="name"
             onChange={handleInputChange}
-            required
           />
           <FormControl>
             <InputLabel>Category</InputLabel>
@@ -115,7 +136,6 @@ export const AddTransaction = ({
             value={date}
             name="date"
             onChange={handleInputChange}
-            required
           />
           <TextField
             onChange={handleInputChange}
@@ -127,7 +147,6 @@ export const AddTransaction = ({
                 <InputAdornment position="start">$</InputAdornment>
               ),
             }}
-            required
           />
           <Button variant="contained" type="submit">
             Add

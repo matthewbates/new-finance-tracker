@@ -11,6 +11,6 @@ export const SidebarContainer = styled.div`
 export const SidebarWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  transition: 0.3s linear;
+  /* transition: 0.3s linear; */
   background: ${({ theme }) => (theme === "light" ? "#ffffff" : "#212121")};
 `;

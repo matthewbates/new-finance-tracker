@@ -7,9 +7,9 @@ export const Burger = ({ isOpen, toggleSidebar, theme }) => {
   return (
     <BurgerContainer theme={theme} $isOpen={isOpen} onClick={toggleSidebar}>
       {isOpen ? (
-        <CloseIcon isOpen={isOpen} fontSize="medium" />
+        <CloseIcon fontSize="medium" />
       ) : (
-        <DragHandleIcon isOpen={isOpen} fontSize="medium" />
+        <DragHandleIcon fontSize="medium" />
       )}
     </BurgerContainer>
   );

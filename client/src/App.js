@@ -5,9 +5,11 @@ import { useState, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import { Home } from "./pages/Home";
-import { Navbar } from "./components/Navbar";
 import { Transactions } from "./pages/Transactions";
+import { Profile } from "./pages/Profile";
+
 import { ThemeContext } from "./components/Provider";
+import { Navbar } from "./components/Navbar";
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,6 +34,7 @@ export default function App() {
           path="/transactions"
           element={<Transactions isOpen={isOpen} theme={theme} />}
         />
+        <Route path="/profile" element={<Profile theme={theme} />} />
       </Routes>
     </div>
   );

@@ -22,7 +22,7 @@ export const Sidebar = ({ isOpen, setIsOpen, theme, links }) => {
   });
 
   return (
-    <SidebarContainer $isOpen={isOpen} ref={sidebarRef}>
+    <SidebarContainer ref={sidebarRef}>
       <SidebarWrapper ref={linkRef} theme={theme}>
         {links
           .filter((item) => (item.name !== "" ? item : null))

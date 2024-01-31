@@ -8,10 +8,13 @@ export const ArrowContainer = styled.div`
 `;
 
 export const NoTransactionsText = styled.h2`
-  position: absolute;
+  /* position: absolute;
   display: flex;
   text-align: center;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+  display: flex;
+  justify-content: center;
+  padding: 1em;
 `;

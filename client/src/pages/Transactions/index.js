@@ -7,16 +7,13 @@ import { TransactionItem } from "./TransactionItem";
 import { ArrowItems } from "./ArrowItems";
 
 import { Loader } from "../../components/Loader";
-import { MONTHS } from "../../utils/transactions/data";
+
 import { NoTransactionsText } from "../../utils/transactions/styles";
 import {
-  handleNextMonth,
-  handlePreviousMonth,
   listTransactionsByMonth,
   transactionsForSelectedMonth,
+  someTransactionsForSelectedMonth,
 } from "../../utils/transactions/helpers";
-
-import { flexbox } from "@mui/system";
 
 export const Transactions = ({ theme }) => {
   const [transactions, setTransactions] = useState([]);
@@ -39,7 +36,7 @@ export const Transactions = ({ theme }) => {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => setIsLoading(false), 2500);
+    setTimeout(() => setIsLoading(false), 1500);
   }, []);
 
   return (
@@ -50,39 +47,40 @@ export const Transactions = ({ theme }) => {
         currentYear={currentYear}
         setCurrentYear={setCurrentYear}
       />
-      {Object.keys(
-        listTransactionsByMonth(
-          transactions.filter((transaction) => {
-            return (
-              new Date(transaction.date).getMonth() === currentMonth &&
-              new Date(transaction.date).getFullYear() === currentYear
-            );
-          })
-        )
-      ).map((date) =>
-        listTransactionsByMonth(transactions)[date].map((item, index) => (
-          <TransactionItem
-            key={index}
-            item={item}
-            theme={theme}
-            transactions={transactions}
-            setTransactions={setTransactions}
-          />
-        ))
-      )}
-      {Object.keys(
-        listTransactionsByMonth(
-          transactions.filter((transaction) => {
-            return (
-              new Date(transaction.date).getMonth() === currentMonth &&
-              new Date(transaction.date).getFullYear() === currentYear
-            );
-          })
-        )
-      ).length === 0 && (
-        <NoTransactionsText>
-          No transactions for {MONTHS[currentMonth]}.
-        </NoTransactionsText>
+      {isLoading ? (
+        <Loader theme={theme} />
+      ) : (
+        <>
+          {someTransactionsForSelectedMonth(
+            transactions,
+            currentMonth,
+            currentYear
+          )
+            ? Object.keys(
+                listTransactionsByMonth(
+                  transactionsForSelectedMonth(
+                    transactions,
+                    currentMonth,
+                    currentYear
+                  )
+                )
+              ).map((date) =>
+                listTransactionsByMonth(transactions)[date].map(
+                  (item, index) => (
+                    <TransactionItem
+                      key={index}
+                      item={item}
+                      theme={theme}
+                      transactions={transactions}
+                      setTransactions={setTransactions}
+                    />
+                  )
+                )
+              )
+            : // <NoTransactionsText>No transactions to display.</NoTransactionsText>
+              null}
+          <Popover />
+        </>
       )}
     </>
   );

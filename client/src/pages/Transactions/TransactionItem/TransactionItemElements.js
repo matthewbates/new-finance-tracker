@@ -3,11 +3,11 @@ import styled from "styled-components";
 export const TransactionContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: auto;
   align-items: center;
   cursor: pointer;
   padding: 1em;
-  border-bottom: 1px solid #121212;
+  padding: 0.5em;
+  /* border-bottom: 1px solid #121212; */
   font-size: 14px;
 
   &:nth-child(odd) {
@@ -19,14 +19,15 @@ export const TransactionContainer = styled.div`
   }
 
   @media screen and (min-width: 768px) {
-    max-width: 75%;
+    /* max-width: 75%; */
+    justify-content: space-evenly;
   }
 `;
 
 export const TransactionName = styled.div``;
 
-export const TransactionDate = styled.div``;
-
-export const TransactionAmount = styled.div`
+export const TransactionDate = styled.div`
   font-weight: bold;
 `;
+
+export const TransactionAmount = styled.div``;
