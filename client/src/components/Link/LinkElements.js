@@ -5,6 +5,7 @@ export const LinkContainer = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 1.25em;
   color: ${({ theme }) => (theme === "light" ? "rgb(36, 51, 90)" : "#ffffff")};
   text-decoration: none;
   cursor: pointer;

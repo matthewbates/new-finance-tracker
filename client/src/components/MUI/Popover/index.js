@@ -14,7 +14,13 @@ import {
   handleSearch,
 } from "../../../utils/transactions/helpers";
 
-export const Popover = ({ id, category, transactions, setTransactions }) => {
+export const Popover = ({
+  id,
+  theme,
+  category,
+  transactions,
+  setTransactions,
+}) => {
   const [categoryOption, setCategoryOption] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryUpdate, setCategoryUpdate] = useState("");

@@ -3,10 +3,10 @@ const { Schema } = mongoose;
 
 const transactionSchema = new Schema({
   _id: mongoose.Types.ObjectId,
-  name: { type: String },
-  amount: { type: Number },
-  category: { type: String },
-  date: { type: Date },
+  name: { String },
+  amount: { Number },
+  category: { String },
+  date: { Date },
 });
 
 module.exports = mongoose.model("Transaction", transactionSchema);

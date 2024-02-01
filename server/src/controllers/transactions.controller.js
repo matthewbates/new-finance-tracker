@@ -88,4 +88,11 @@ const patchTransaction = (req, res, next) => {
     });
 };
 
-module.exports = { postNewTransaction, getAllTransactions, patchTransaction };
+const deleteTransaction = (req, res, next) => {};
+
+module.exports = {
+  postNewTransaction,
+  getAllTransactions,
+  patchTransaction,
+  deleteTransaction,
+};

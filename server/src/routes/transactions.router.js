@@ -14,5 +14,10 @@ transactionsRouter.patch(
   "/:transactionId",
   transactionsController.patchTransaction
 );
+// DELETE one transaction
+transactionsRouter.delete(
+  "/:transactionId",
+  transactionsController.deleteTransaction
+);
 
 module.exports = transactionsRouter;

@@ -106,7 +106,8 @@ export const AddTransaction = ({
             display: "flex",
             flexDirection: "column",
             gap: "1em",
-            margin: "2em",
+
+            padding: "2em",
           }}
         >
           <TextField
@@ -153,7 +154,7 @@ export const AddTransaction = ({
           </Button>
         </CardContent>
       </form>
-      <CancelIcon
+      {/* <CancelIcon
         fontSize="medium"
         sx={{
           position: "absolute",
@@ -163,7 +164,7 @@ export const AddTransaction = ({
           cursor: "pointer",
         }}
         onClick={() => setPopover(false)}
-      />
+      /> */}
     </Card>
   );
 };

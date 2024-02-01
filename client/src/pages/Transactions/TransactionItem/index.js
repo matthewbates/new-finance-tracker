@@ -20,7 +20,7 @@ export const TransactionItem = ({
 
   useEffect(() => {
     const adjustDate = () => {
-      setShowDate(window.innerWidth > 768);
+      setShowDate(window.innerWidth >= 768);
     };
 
     window.addEventListener("resize", adjustDate);
@@ -32,12 +32,22 @@ export const TransactionItem = ({
   return (
     <>
       {!showDate && (
-        <TransactionDate>{new Date(date).toLocaleDateString()}</TransactionDate>
+        <div
+          style={{
+            fontSize: "14px",
+            textDecoration: "underline",
+            padding: "0.75em",
+            fontWeight: "bold",
+          }}
+        >
+          {new Date(date).toLocaleDateString()}
+        </div>
       )}
       <TransactionContainer key={id} theme={theme}>
         <TransactionName>{name}</TransactionName>
         <Popover
           id={id}
+          theme={theme}
           category={category}
           transactions={transactions}
           setTransactions={setTransactions}
