@@ -32,6 +32,7 @@ export const Transactions = ({ theme }) => {
         console.log(error);
       }
     };
+    // add a finally {} to respovd the fetch
     getTransactions();
   }, []);
 
