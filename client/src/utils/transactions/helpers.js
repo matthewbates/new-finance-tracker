@@ -36,7 +36,7 @@ const getPreviousyear = (currentYear, setCurrentYear) => {
   setCurrentYear(currentYear - 1);
 };
 
-// increments month
+// increments year
 const getNextYear = (currentYear, setCurrentYear) => {
   setCurrentYear(currentYear + 1);
 };
