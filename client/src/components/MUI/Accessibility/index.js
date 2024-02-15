@@ -27,14 +27,16 @@ export const Accessibility = ({
             cursor: "pointer",
             background: "#1e88e5",
             border:
-              theme === "light"
-                ? "0.2em solid darkBlue"
-                : "0.2em solid #ffffff",
+              theme === "light" ? "4px solid darkBlue" : "4px solid #ffffff",
             borderRadius: "50%",
           }}
         />
       </Tooltip>
-      <AccessibilityMenu theme={theme} accessibility={accessibility} />
+      <AccessibilityMenu
+        theme={theme}
+        accessibility={accessibility}
+        toggleAccessibility={toggleAccessibility}
+      />
     </>
   );
 };

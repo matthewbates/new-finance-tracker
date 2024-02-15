@@ -1,4 +1,7 @@
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 const mongoose = require("mongoose");
+
 const User = require("../models/users.model");
 
 const postNewUser = (req, res, next) => {
@@ -7,7 +10,7 @@ const postNewUser = (req, res, next) => {
   User.find({ email })
     .exec()
     .then((user) => {
-      console.log(req.body.password);
+      console.log(password);
       //! ✅
       if (user.length >= 1) {
         return res.status(409).json({
@@ -24,34 +27,71 @@ const postNewUser = (req, res, next) => {
           message: "Passwords don't match",
         });
       } else {
-        const user = new User({
-          _id: new mongoose.Types.ObjectId(),
-          email: req.body.email,
-          password: req.body.password,
-          confirm: req.body.confirm,
-        });
-        user
-          .save()
-          .then((result) => {
-            console.log(result);
-            res.status(201).json({
-              message: "User created successfully",
-              user: [
-                {
-                  userId: user._id,
-                  email: user.email,
-                  password: user.password,
-                },
-              ],
-            });
-          })
-          .catch((err) => {
+        bcrypt.hash(password, saltRounds, (err, hash) => {
+          if (err) {
             res.status(500).json({
               error: err,
             });
-          });
+          } else {
+            const user = new User({
+              _id: new mongoose.Types.ObjectId(),
+              email: email,
+              password: hash,
+            });
+            user
+              .save()
+              .then((result) => {
+                console.log(result);
+                res.status(201).json({
+                  message: "Account created successfully",
+                  user: [
+                    {
+                      userId: user._id,
+                      email: user.email,
+                    },
+                  ],
+                });
+              })
+              .catch((err) => {
+                console.log(err);
+                res.status(500).json({
+                  error: err,
+                });
+              });
+          }
+        });
       }
     });
 };
 
-module.exports = { postNewUser };
+const postUserLogin = (req, res, next) => {
+  let email = req.body.email;
+  User.findOne({ email: email })
+    .exec()
+    .then((user) => {
+      console.log(user);
+      if (!user) {
+        res.status(404).json({
+          message: "User not found",
+        });
+      }
+      return res.status(200).json({
+        message: "Authorization successful",
+        user: [
+          {
+            email: user.email,
+            password: user.password,
+            confirm: user.confirm,
+          },
+        ],
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(401).json({
+        error: err,
+      });
+    });
+};
+
+module.exports = { postNewUser, postUserLogin };
