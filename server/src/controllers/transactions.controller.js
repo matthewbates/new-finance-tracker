@@ -88,7 +88,22 @@ const patchTransaction = (req, res, next) => {
     });
 };
 
-const deleteTransaction = (req, res, next) => {};
+const deleteTransaction = (req, res, next) => {
+  const transactionId = req.params.transactionId;
+  Transaction.findOneAndDelete({ _id: transactionId })
+    .exec()
+    .then((response) => {
+      console.log(response);
+      if (!response) {
+        return res.status(404).json({
+          message: "Transaction not found",
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 module.exports = {
   postNewTransaction,

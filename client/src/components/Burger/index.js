@@ -6,11 +6,12 @@ import { BurgerContainer } from "./BurgerElements";
 export const Burger = ({ isOpen, toggleSidebar, theme }) => {
   return (
     <BurgerContainer theme={theme} $isOpen={isOpen} onClick={toggleSidebar}>
-      {isOpen ? (
+      {/* {isOpen ? (
         <CloseIcon fontSize="medium" />
       ) : (
         <DragHandleIcon fontSize="medium" />
-      )}
+      )} */}
+      <DragHandleIcon fontSize="medium" />
     </BurgerContainer>
   );
 };

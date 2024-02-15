@@ -9,14 +9,10 @@ import {
 
 import { Popover } from "../../../components/MUI/Popover";
 
-export const TransactionItem = ({
-  item,
-  theme,
-  transactions,
-  setTransactions,
-}) => {
+export const TransactionItem = ({ props, theme }) => {
   const [showDate, setShowDate] = useState(false);
-  const { id, name, category, date, amount } = item;
+
+  const { id, name, category, date, amount } = props;
 
   useEffect(() => {
     const adjustDate = () => {
@@ -39,25 +35,12 @@ export const TransactionItem = ({
             padding: "0.75em",
             fontWeight: "bold",
           }}
-        >
-          {new Date(date).toLocaleDateString()}
-        </div>
+        ></div>
       )}
-      <TransactionContainer key={id} theme={theme}>
-        <TransactionName>{name}</TransactionName>
-        <Popover
-          id={id}
-          theme={theme}
-          category={category}
-          transactions={transactions}
-          setTransactions={setTransactions}
-        />
-        {showDate && (
-          <TransactionDate>
-            {new Date(date).toLocaleDateString()}
-          </TransactionDate>
-        )}
-        <TransactionAmount>${amount}</TransactionAmount>
+      <TransactionContainer theme={theme}>
+        <TransactionName></TransactionName>
+        <Popover theme={theme} />
+        <TransactionAmount>$</TransactionAmount>
       </TransactionContainer>
     </>
   );

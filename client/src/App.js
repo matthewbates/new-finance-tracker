@@ -8,15 +8,21 @@ import { Home } from "./pages/Home";
 import { Transactions } from "./pages/Transactions";
 import { Profile } from "./pages/Profile";
 
+import { Accessibility } from "./components/MUI/Accessibility";
 import { ThemeContext } from "./components/Provider";
 import { Navbar } from "./components/Navbar";
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const [accessibility, setAccessibility] = useState(false);
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleAccessibility = () => {
+    setAccessibility(!accessibility);
   };
 
   return (
@@ -36,6 +42,11 @@ export default function App() {
         />
         <Route path="/profile" element={<Profile theme={theme} />} />
       </Routes>
+      <Accessibility
+        theme={theme}
+        accessibility={accessibility}
+        toggleAccessibility={toggleAccessibility}
+      />
     </div>
   );
 }

@@ -41,45 +41,19 @@ export const Transactions = ({ theme }) => {
 
   return (
     <>
-      <ArrowItems
+      {/* <ArrowItems
         currentMonth={currentMonth}
         setCurrentMonth={setCurrentMonth}
         currentYear={currentYear}
         setCurrentYear={setCurrentYear}
-      />
+      /> */}
       {isLoading ? (
         <Loader theme={theme} />
       ) : (
         <>
-          {someTransactionsForSelectedMonth(
-            transactions,
-            currentMonth,
-            currentYear
-          )
-            ? Object.keys(
-                listTransactionsByMonth(
-                  transactionsForSelectedMonth(
-                    transactions,
-                    currentMonth,
-                    currentYear
-                  )
-                )
-              ).map((date) =>
-                listTransactionsByMonth(transactions)[date].map(
-                  (item, index) => (
-                    <TransactionItem
-                      key={index}
-                      item={item}
-                      theme={theme}
-                      transactions={transactions}
-                      setTransactions={setTransactions}
-                    />
-                  )
-                )
-              )
-            : // <NoTransactionsText>No transactions to display.</NoTransactionsText>
-              null}
-          <Popover />
+          {transactions.map(({ id, ...props }) => (
+            <TransactionItem key={id} id={id} props={props} theme={theme} />
+          ))}
         </>
       )}
     </>
