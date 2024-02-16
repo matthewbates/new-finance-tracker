@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 import { TextField } from "../../components/MUI/TextField";
@@ -29,11 +29,10 @@ export const Login = ({ setCurrentUser }) => {
         password,
       });
       if (response) {
-        console.log(response);
+        console.log(response.data.user[0]);
         setCurrentUser(response.data.user);
         navigate("/");
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        console.log(response.data.user);
       }
     } catch (err) {
       console.log(err);
@@ -71,31 +70,19 @@ export const Login = ({ setCurrentUser }) => {
         value={formData.email}
         onChange={handleChange}
       />
-      {/* <input
-        type="text"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-      /> */}
-
       <TextField
+        type="password"
         label="Password"
         name="password"
         value={formData.password}
         onChange={handleChange}
       />
-      {/* <input
-        type="text"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-      /> */}
       <Button type="submit" variant="contained">
         Sign in
       </Button>
-      <h4 style={{ display: "flex", justifyContent: "center" }}>
-        Don't have an account? <a href="#"> Sign up</a>
-      </h4>
+      <div>
+        Don't have an account? <Link to="/signup">Sign up</Link>
+      </div>
     </form>
   );
 };

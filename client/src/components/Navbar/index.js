@@ -22,7 +22,7 @@ export const Navbar = ({
     <NavbarContainer>
       <Burger isOpen={isOpen} toggleSidebar={toggleSidebar} theme={theme} />
       <IconButton
-        onClick={toggleTheme}
+        // onClick={toggleTheme}
         sx={{
           color: theme === "light" ? "#263238" : "#ffffff",
         }}
