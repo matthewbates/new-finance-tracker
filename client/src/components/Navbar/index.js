@@ -1,4 +1,4 @@
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Link } from "react-router-dom";
 
 import { NavbarContainer } from "./NavbarElements";
 
@@ -16,6 +16,7 @@ export const Navbar = ({
   toggleSidebar,
   theme,
   toggleTheme,
+  currentUser,
 }) => {
   return (
     <NavbarContainer>
@@ -28,24 +29,17 @@ export const Navbar = ({
       >
         <ThemeToggle theme={theme} />
       </IconButton>
-      <IconButton
-        theme={theme}
-        sx={{
-          // marginRight: "0.25em",
-          color: theme === "light" ? "#263238" : "#ffffff",
-        }}
-      >
-        <AccountIcon />
-      </IconButton>
-      <p style={{ marginRight: "0.5em" }}>Login</p>
-      {/* <IconButton
-        sx={{
-          marginRight: "0.5em",
-          color: theme === "light" ? "#263238" : "#ffffff",
-        }}
-      >
-        <AccountCircleIcon fontSize="medium" />
-      </IconButton> */}
+      <Link to="/login">
+        <IconButton
+          theme={theme}
+          sx={{
+            color: theme === "light" ? "#263238" : "#ffffff",
+          }}
+        >
+          <AccountIcon />
+        </IconButton>
+      </Link>
+      <p style={{ marginRight: "0.5em" }}>{currentUser ? "Logout" : "Login"}</p>
       <Sidebar
         links={links}
         isOpen={isOpen}

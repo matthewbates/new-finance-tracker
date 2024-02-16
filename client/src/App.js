@@ -1,18 +1,21 @@
 import "./App.css";
 
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import { Routes, Route } from "react-router-dom";
 
 import { Home } from "./pages/Home";
-import { Transactions } from "./pages/Transactions";
 import { Profile } from "./pages/Profile";
+import { Login } from "./pages/Login";
+import { Signup } from "./pages/Signup";
+import { Transactions } from "./pages/Transactions";
 
 import { Accessibility } from "./components/MUI/Accessibility";
 import { ThemeContext } from "./components/Provider";
 import { Navbar } from "./components/Navbar";
 
 export default function App() {
+  const [currentUser, setCurrentUser] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [accessibility, setAccessibility] = useState(false);
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -25,6 +28,14 @@ export default function App() {
     setAccessibility(!accessibility);
   };
 
+  useEffect(() => {
+    const userLoggedIn = localStorage.getItem("user");
+    if (userLoggedIn) {
+      const loggedInUser = JSON.parse(userLoggedIn);
+      setCurrentUser(loggedInUser);
+    }
+  }, []);
+
   return (
     <div className="App">
       <Navbar
@@ -33,6 +44,7 @@ export default function App() {
         toggleSidebar={toggleSidebar}
         theme={theme}
         toggleTheme={toggleTheme}
+        currentUser={currentUser}
       />
       <Routes>
         <Route path="/" element={<Home isOpen={isOpen} />} />
@@ -41,6 +53,14 @@ export default function App() {
           element={<Transactions isOpen={isOpen} theme={theme} />}
         />
         <Route path="/profile" element={<Profile theme={theme} />} />
+        <Route
+          path="/login"
+          element={<Login theme={theme} setCurrentUser={setCurrentUser} />}
+        />
+        <Route
+          path="/signup"
+          element={<Signup theme={theme} setCurrentUser={setCurrentUser} />}
+        />
       </Routes>
       <Accessibility
         theme={theme}
