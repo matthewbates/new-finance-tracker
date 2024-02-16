@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 // takes an array of transactions and groups them by date
 export const listTransactionsByMonth = (transactions) => {
   if (!transactions || transactions.length === 0) return {};
@@ -116,4 +118,12 @@ export const handleClick = (e, setCategoryOption) => {
 // allows the user to type in the <Input /> inside <Popover />
 export const handleSearch = (e, setSearchTerm) => {
   setSearchTerm(e.target.value);
+};
+
+// handles the logout functionality
+export const handleLogout = (setCurrentUser, navigate) => {
+  setTimeout(() => {
+    setCurrentUser(false);
+    navigate("/");
+  }, 1500);
 };

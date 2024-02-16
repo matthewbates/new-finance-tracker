@@ -1,6 +1,11 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
 
-export const Profile = () => {
+import { Button } from "../../components/MUI/Button";
+import { handleLogout } from "../../utils/transactions/helpers";
+
+export const Profile = ({ setCurrentUser }) => {
+  const navigate = useNavigate();
+
   return (
     <div
       style={{
@@ -10,7 +15,13 @@ export const Profile = () => {
         height: "100vh",
       }}
     >
-      <div>Profile Page</div>
+      <Button
+        color="error"
+        variant="contained"
+        onClick={() => handleLogout(setCurrentUser, navigate)}
+      >
+        Logout
+      </Button>
     </div>
   );
 };

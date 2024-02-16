@@ -29,7 +29,7 @@ export const Navbar = ({
       >
         <ThemeToggle theme={theme} />
       </IconButton>
-      <Link to="/login">
+      <Link to={currentUser ? "/profile" : "/login"}>
         <IconButton
           theme={theme}
           sx={{

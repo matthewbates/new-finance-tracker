@@ -5,7 +5,7 @@ export const SidebarContainer = styled.div`
   top: 80px;
   width: 100%;
   overflow: hidden;
-  z-index: 1;
+  z-index: 2;
 `;
 
 export const SidebarWrapper = styled.div`

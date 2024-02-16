@@ -11,17 +11,17 @@ const postNewUser = (req, res, next) => {
     .exec()
     .then((user) => {
       console.log(password);
-      //! ✅
+      //! ✅ WORKS
       if (user.length >= 1) {
         return res.status(409).json({
           message: "E-mail already exists",
         });
-        //! ✅
+        //! ✅ WORKS
       } else if (!user || !password || !confirm) {
         res.status(400).json({
           message: "Email, password, & confirm are all required",
         });
-        //! ✅
+        //! ✅ WORKS
       } else if (password !== confirm) {
         res.status(400).json({
           message: "Passwords don't match",
@@ -65,7 +65,7 @@ const postNewUser = (req, res, next) => {
 };
 
 const postUserLogin = (req, res, next) => {
-  let email = req.body.email;
+  let { email, password } = req.body;
   User.findOne({ email: email })
     .exec()
     .then((user) => {
@@ -75,15 +75,24 @@ const postUserLogin = (req, res, next) => {
           message: "User not found",
         });
       }
-      return res.status(200).json({
-        message: "Authorization successful",
-        user: [
-          {
-            email: user.email,
-            password: user.password,
-            confirm: user.confirm,
-          },
-        ],
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (err) {
+          res.status(500).json({
+            error: err,
+          });
+        }
+        if (result) {
+          console.log(result);
+          res.status(200).json({
+            message: "Login successful",
+            user: [
+              {
+                email: email,
+                password: password,
+              },
+            ],
+          });
+        }
       });
     })
     .catch((err) => {
