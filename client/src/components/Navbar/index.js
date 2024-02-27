@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { NavbarContainer } from "./NavbarElements";
+import { NavbarContainer, NavLink, NavLinkWrapper } from "./NavbarElements";
 
 import { links } from "./links";
 
@@ -20,26 +20,43 @@ export const Navbar = ({
 }) => {
   return (
     <NavbarContainer>
+      {links.map(({ id, name, path }) => (
+        <NavLinkWrapper key={id}>
+          <NavLink theme={theme} to={path}>
+            {name}
+          </NavLink>
+        </NavLinkWrapper>
+      ))}
       <Burger isOpen={isOpen} toggleSidebar={toggleSidebar} theme={theme} />
-      <IconButton
-        // onClick={toggleTheme}
-        sx={{
-          color: theme === "light" ? "#263238" : "#ffffff",
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginLeft: "auto",
+          marginRight: "1em",
         }}
       >
-        <ThemeToggle theme={theme} />
-      </IconButton>
-      <Link to={currentUser ? "/profile" : "/login"}>
         <IconButton
-          theme={theme}
           sx={{
             color: theme === "light" ? "#263238" : "#ffffff",
           }}
         >
-          <AccountIcon />
+          <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
         </IconButton>
-      </Link>
-      <p style={{ marginRight: "0.5em" }}>{currentUser ? "Logout" : "Login"}</p>
+        <Link to={currentUser ? "/profile" : "/login"}>
+          <IconButton
+            theme={theme}
+            sx={{
+              color: theme === "light" ? "#263238" : "#ffffff",
+            }}
+          >
+            <AccountIcon />
+          </IconButton>
+        </Link>
+        <p style={{ marginRight: "0.5em" }}>
+          {currentUser ? "Logout" : "Login"}
+        </p>
+      </div>
       <Sidebar
         links={links}
         isOpen={isOpen}

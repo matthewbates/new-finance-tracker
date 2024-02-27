@@ -10,4 +10,9 @@ export const LinkContainer = styled(Link)`
   text-decoration: none;
   cursor: pointer;
   border-bottom: 1px solid rgb(213, 220, 234);
+  transition: 0.3s ease;
+
+  &:hover {
+    background: #ddd;
+  }
 `;

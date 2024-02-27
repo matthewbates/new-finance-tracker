@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
 import { Button } from "../../components/MUI/Button";
-import { handleLogout } from "../../utils/transactions/helpers";
+
+import { handleLogout } from "../../utils/profile/helpers";
 
 export const Profile = ({ setCurrentUser }) => {
   const navigate = useNavigate();
