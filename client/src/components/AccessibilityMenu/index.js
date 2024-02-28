@@ -8,7 +8,7 @@ export const AccessibilityMenu = ({
   toggleAccessibility,
 }) => {
   return (
-    <AccessibilityMenuContainer theme={theme} accessibility={accessibility}>
+    <AccessibilityMenuContainer theme={theme} $accessibility={accessibility}>
       <CancelIcon color="action" onClick={toggleAccessibility} />
     </AccessibilityMenuContainer>
   );

@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { MenuItem, Popover } from "@mui/material";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness5Icon from "@mui/icons-material/Brightness5";
-import SettingsIcon from "@mui/icons-material/Settings";
 import { Tooltip } from "../MUI/Tooltip";
+
+import { Menu } from "../MUI/Menu";
 
 export const ThemeToggle = ({ theme, toggleTheme }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const open = Boolean(anchorEl);
 
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
@@ -15,15 +17,6 @@ export const ThemeToggle = ({ theme, toggleTheme }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const handleThemeChange = (selectedTheme) => {
-    if (theme !== selectedTheme) {
-      toggleTheme(selectedTheme);
-    }
-    handleClose();
-  };
-
-  const open = Boolean(anchorEl);
 
   return (
     <>
@@ -34,26 +27,13 @@ export const ThemeToggle = ({ theme, toggleTheme }) => {
           <Brightness4Icon fontSize="medium" onClick={handleClick} />
         )}
       </Tooltip>
-      <Popover open={open} anchorEl={anchorEl} onClose={handleClose}>
-        <MenuItem
-          sx={{ gap: "0.5em" }}
-          onClick={() => handleThemeChange("light")}
-        >
-          <Brightness5Icon /> Light
-        </MenuItem>
-        <MenuItem
-          sx={{ gap: "0.5em" }}
-          onClick={() => handleThemeChange("dark")}
-        >
-          <Brightness4Icon /> Dark
-        </MenuItem>
-        <MenuItem
-          sx={{ gap: "0.5em" }}
-          onClick={() => handleThemeChange("system")}
-        >
-          <SettingsIcon /> System
-        </MenuItem>
-      </Popover>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        theme={theme}
+        toggleTheme={toggleTheme}
+      />
     </>
   );
 };

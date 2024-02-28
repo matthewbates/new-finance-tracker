@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const AccessibilityMenuContainer = styled.div`
   position: absolute;
-  display: ${({ accessibility }) => (accessibility ? "flex" : "none")};
+  display: ${({ $accessibility }) => ($accessibility ? "flex" : "none")};
   top: 0;
   left: 0;
   height: 100%;

@@ -21,12 +21,14 @@ const postNewUser = (req, res, next) => {
         res.status(400).json({
           message: "Email, password, & confirm are all required",
         });
-        //! ✅ WORKS
-      } else if (password !== confirm) {
-        res.status(400).json({
-          message: "Passwords don't match",
-        });
-      } else {
+      }
+      //! TAKING OUT UNTIL THE SIGNUP COMPONENT HAS BEEN CREATED
+      // else if (password !== confirm) {
+      //   res.status(400).json({
+      //     message: "Passwords don't match",
+      //   });
+      // }
+      else {
         bcrypt.hash(password, saltRounds, (err, hash) => {
           if (err) {
             res.status(500).json({

@@ -1,16 +1,19 @@
 import { useState } from "react";
 
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+
+import { FormContainer, Form, H2, SignupWrapper } from "./LoginElements";
 
 import { TextField } from "../../components/MUI/TextField";
 import { Button } from "../../components/MUI/Button";
 
-export const Login = ({ setCurrentUser }) => {
+export const Login = ({ setCurrentUser, theme }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -40,49 +43,43 @@ export const Login = ({ setCurrentUser }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1em",
-        width: "100%",
-        maxWidth: "300px",
-        margin: "auto",
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-      }}
-    >
-      <h1
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          textAlign: "center",
-        }}
-      >
-        Login to your account
-      </h1>
-      <TextField
-        label="Email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-      />
-      <TextField
-        type="password"
-        label="Password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-      />
-      <Button type="submit" variant="contained">
-        Sign in
-      </Button>
-      <div>
-        Don't have an account? <Link to="/signup">Sign up</Link>
-      </div>
-    </form>
+    <>
+      <FormContainer>
+        <Form onSubmit={handleSubmit}>
+          <H2>Login to your account</H2>
+          <TextField
+            label="Email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            sx={{
+              // mb: 2,
+              input: theme === "dark" && { color: "#ffffff" },
+              label: theme === "dark" && { color: "#ffffff" },
+              border: theme === "dark" && "1px solid #ffffff",
+              //! TAKE OUT FOCUS FOR BOTH TEXT FIELDS
+            }}
+          />
+          <TextField
+            type="password"
+            label="Password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            sx={{
+              border: theme === "dark" && "1px solid #ffffff",
+              input: theme === "dark" && { color: "#ffffff" },
+              label: theme === "dark" && { color: "#ffffff" },
+            }}
+          />
+          <Button type="submit" variant="contained">
+            Submit
+          </Button>
+        </Form>
+      </FormContainer>
+      <SignupWrapper>
+        Don't have an account? <Link to="/">Signup</Link>
+      </SignupWrapper>
+    </>
   );
 };
