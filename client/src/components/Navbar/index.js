@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { Link } from "react-router-dom";
 
 import { NavbarContainer, NavLink, NavLinkWrapper } from "./NavbarElements";
@@ -18,6 +20,18 @@ export const Navbar = ({
   toggleTheme,
   currentUser,
 }) => {
+  useEffect(() => {
+    const handleResize = (e) => {
+      if (e.target.innerWidth > 820) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <NavbarContainer>
       {links.map(({ id, name, path }) => (

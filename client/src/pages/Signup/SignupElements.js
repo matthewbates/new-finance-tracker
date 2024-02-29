@@ -30,7 +30,7 @@ export const H2 = styled.h2`
   margin-top: 1rem;
 `;
 
-export const SignupWrapper = styled.div`
+export const SigninWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;

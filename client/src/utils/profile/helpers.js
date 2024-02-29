@@ -4,6 +4,6 @@ export const handleLogout = (setCurrentUser, navigate) => {
     localStorage.removeItem("user");
     setCurrentUser(false);
     alert("You've successfully logged out");
-    navigate("/");
+    navigate("/login");
   }, 1500);
 };

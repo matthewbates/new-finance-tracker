@@ -20,7 +20,7 @@ export const NavLinkWrapper = styled.div`
   gap: 1rem;
   margin-left: 1.5em;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 820px) {
     display: none;
   }
 `;

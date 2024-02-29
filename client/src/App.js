@@ -49,20 +49,21 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home isOpen={isOpen} />} />
         <Route
-          path="/transactions"
-          element={<Transactions isOpen={isOpen} theme={theme} />}
-        />
-        <Route
-          path="/profile"
-          element={<Profile theme={theme} setCurrentUser={setCurrentUser} />}
-        />
-        <Route
           path="/login"
           element={<Login theme={theme} setCurrentUser={setCurrentUser} />}
         />
         <Route
           path="/signup"
           element={<Signup theme={theme} setCurrentUser={setCurrentUser} />}
+        />
+
+        <Route
+          path="/profile"
+          element={<Profile theme={theme} setCurrentUser={setCurrentUser} />}
+        />
+        <Route
+          path="/transactions"
+          element={<Transactions isOpen={isOpen} theme={theme} />}
         />
       </Routes>
       <Accessibility

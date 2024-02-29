@@ -3,38 +3,59 @@ const mongoose = require("mongoose");
 const Transaction = require("../models/transactions.model");
 
 const postNewTransaction = (req, res, next) => {
-  const transaction = new Transaction({
-    _id: new mongoose.Types.ObjectId(),
-    name: req.body.name,
-    amount: req.body.amount,
-    category: req.body.category,
-    date: req.body.date,
-  });
-  return transaction
-    .save()
-    .then((result) => {
-      console.log(result);
-      res.status(201).json({
-        message: "Transaction recorded successfully",
-        transaction: {
-          _id: result._id,
-          name: result.name,
-          amount: result.amount,
-          category: result.category,
-          date: result.date,
-        },
+  const userId = req.params.userId;
+
+  mongoose
+    .model("User")
+    .findById(userId)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({
+          message: "User not found",
+        });
+      }
+
+      // create a new transaction
+      const transaction = new Transaction({
+        _id: new mongoose.Types.ObjectId(),
+        name: req.body.name,
+        category: req.body.category,
+        amount: req.body.amount,
+        date: req.body.date,
+        user: user._id,
       });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({
-        error: err,
-      });
+
+      return transaction
+        .save()
+        .then((result) => {
+          console.log(result);
+          user.transactions.push(result._id);
+          return user.save().then(() => {
+            res.status(201).json({
+              message: "Transaction recorded",
+              createdTransaction: {
+                _id: result._id,
+                name: result.name,
+                category: result.category,
+                amount: result.amount,
+                date: result.date,
+              },
+            });
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).json({
+            error: err,
+          });
+        });
     });
 };
 
 const getAllTransactions = (req, res, next) => {
-  Transaction.find()
+  const userId = req.params.userId;
+
+  Transaction.find({ user: userId })
     .exec()
     .then((docs) => {
       const response = {
@@ -42,8 +63,8 @@ const getAllTransactions = (req, res, next) => {
           return {
             id: transaction._id,
             name: transaction.name,
-            amount: transaction.amount,
             category: transaction.category,
+            amount: transaction.amount,
             date: transaction.date,
           };
         }),
@@ -53,7 +74,7 @@ const getAllTransactions = (req, res, next) => {
     .catch((err) => {
       console.log(err);
       res.status(500).json({
-        error: "Transaction not found",
+        error: "Transaction not found!",
       });
     });
 };

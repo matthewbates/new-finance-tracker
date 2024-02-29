@@ -2,6 +2,9 @@ import { TextField as MuiTextField } from "@mui/material";
 
 export const TextField = ({
   id,
+  error,
+  InputProps,
+  helperText,
   sx,
   label,
   value,
@@ -13,6 +16,9 @@ export const TextField = ({
 }) => {
   return (
     <MuiTextField
+      error={error}
+      InputProps={InputProps}
+      helperText={helperText}
       sx={sx}
       id={id}
       label={label}

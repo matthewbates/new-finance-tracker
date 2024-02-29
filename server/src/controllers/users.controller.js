@@ -73,19 +73,21 @@ const postUserLogin = (req, res, next) => {
     .then((user) => {
       console.log(user);
       if (!user) {
-        res.status(404).json({
+        return res.status(404).json({
           message: "User not found",
         });
+      } else if (!user) {
       }
       bcrypt.compare(password, user.password, (err, result) => {
         if (err) {
-          res.status(500).json({
+          console.log("Sorry!");
+          return res.status(500).json({
             error: err,
           });
         }
         if (result) {
           console.log(result);
-          res.status(200).json({
+          return res.status(200).json({
             message: "Login successful",
             user: [
               {
@@ -99,7 +101,7 @@ const postUserLogin = (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(401).json({
+      return res.status(401).json({
         error: err,
       });
     });
