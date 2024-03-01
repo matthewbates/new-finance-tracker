@@ -21,14 +21,12 @@ const postNewUser = (req, res, next) => {
         res.status(400).json({
           message: "Email, password, & confirm are all required",
         });
-      }
-      //! TAKING OUT UNTIL THE SIGNUP COMPONENT HAS BEEN CREATED
-      // else if (password !== confirm) {
-      //   res.status(400).json({
-      //     message: "Passwords don't match",
-      //   });
-      // }
-      else {
+        //! ✅ WORKS
+      } else if (password !== confirm) {
+        res.status(400).json({
+          message: "Passwords don't match",
+        });
+      } else {
         bcrypt.hash(password, saltRounds, (err, hash) => {
           if (err) {
             res.status(500).json({
@@ -107,4 +105,28 @@ const postUserLogin = (req, res, next) => {
     });
 };
 
-module.exports = { postNewUser, postUserLogin };
+const getAllUsers = (req, res, next) => {
+  const userId = req.body._id;
+
+  User.find({ user: userId })
+    .exec()
+    .then((docs) => {
+      console.log(docs);
+      res.status(200).json({
+        count: docs.length,
+        users: docs.map((user) => {
+          return {
+            email: user.email,
+          };
+        }),
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        error: err,
+      });
+    });
+};
+
+module.exports = { postNewUser, postUserLogin, getAllUsers };

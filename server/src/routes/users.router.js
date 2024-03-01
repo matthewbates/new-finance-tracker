@@ -8,4 +8,6 @@ usersRouter.post("/signup", usersController.postNewUser);
 
 usersRouter.post("/account", usersController.postUserLogin);
 
+usersRouter.get("/", usersController.getAllUsers);
+
 module.exports = usersRouter;

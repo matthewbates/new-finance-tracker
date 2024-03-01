@@ -12,7 +12,7 @@ export const Form = styled.form`
   gap: 1rem;
   width: 100%;
 
-  @media screen and (min-width: 820px) {
+  @media screen and (min-width: 768px) {
     position: absolute;
     padding: 4rem;
     top: 50%;
@@ -38,6 +38,7 @@ export const SignupWrapper = styled.div`
 export const NavLink = styled(Link)`
   color: blue;
   text-decoration: none;
+  font-weight: bold;
 
   &:hover {
     text-decoration: underline;

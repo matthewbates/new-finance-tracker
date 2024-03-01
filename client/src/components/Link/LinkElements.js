@@ -5,14 +5,10 @@ export const LinkContainer = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75em 1.25em;
+  padding: 1em 1.25em;
   color: ${({ theme }) => (theme === "light" ? "rgb(36, 51, 90)" : "#ffffff")};
   text-decoration: none;
   cursor: pointer;
   border-bottom: 1px solid rgb(213, 220, 234);
   transition: 0.3s ease;
-
-  &:hover {
-    background: #ddd;
-  }
 `;

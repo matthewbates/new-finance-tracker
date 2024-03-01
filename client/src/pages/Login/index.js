@@ -47,6 +47,8 @@ export const Login = ({ setCurrentUser, theme }) => {
     }
   };
 
+  const sendEmail = async (email, subject, text) => {};
+
   return (
     <>
       <FormContainer>
