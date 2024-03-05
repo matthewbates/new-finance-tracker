@@ -37,7 +37,6 @@ export const Login = ({ setCurrentUser, theme }) => {
         password,
       });
       if (response) {
-        console.log(response.data.user[0]);
         setCurrentUser(response.data.user);
         navigate("/");
         localStorage.setItem("user", JSON.stringify(response.data.user));

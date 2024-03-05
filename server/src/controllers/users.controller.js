@@ -65,7 +65,10 @@ const postNewUser = (req, res, next) => {
 };
 
 const postUserLogin = (req, res, next) => {
-  let { email, password } = req.body;
+  let _id = req.body._id;
+  let email = req.body.email;
+  let password = req.body.password;
+
   User.findOne({ email: email })
     .exec()
     .then((user) => {
@@ -78,7 +81,6 @@ const postUserLogin = (req, res, next) => {
       }
       bcrypt.compare(password, user.password, (err, result) => {
         if (err) {
-          console.log("Sorry!");
           return res.status(500).json({
             error: err,
           });
@@ -89,6 +91,7 @@ const postUserLogin = (req, res, next) => {
             message: "Login successful",
             user: [
               {
+                _id: user._id,
                 email: email,
                 password: password,
               },

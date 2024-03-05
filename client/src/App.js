@@ -62,8 +62,8 @@ export default function App() {
           element={<Profile theme={theme} setCurrentUser={setCurrentUser} />}
         />
         <Route
-          path="/transactions"
-          element={<Transactions isOpen={isOpen} theme={theme} />}
+          path={"/transactions"}
+          element={<Transactions currentUser={currentUser} theme={theme} />}
         />
       </Routes>
       <Accessibility

@@ -15,7 +15,7 @@ import {
   someTransactionsForSelectedMonth,
 } from "../../utils/transactions/helpers";
 
-export const Transactions = ({ theme }) => {
+export const Transactions = ({ currentUser, theme }) => {
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -24,7 +24,7 @@ export const Transactions = ({ theme }) => {
   useEffect(() => {
     const getTransactions = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/transactions/");
+        const response = await axios.get(`http://localhost:8000/transactions`);
         if (response) {
           setTransactions(response.data.transactions);
         }
@@ -39,8 +39,6 @@ export const Transactions = ({ theme }) => {
     setTimeout(() => setIsLoading(false), 1500);
   }, []);
 
-  console.log(transactions);
-
   return (
     <>
       {/* <ArrowItems
@@ -54,7 +52,7 @@ export const Transactions = ({ theme }) => {
       ) : (
         <>
           {transactions.map(({ id, ...props }) => (
-            <TransactionItem key={id} id={id} props={props} theme={theme} />
+            <TransactionItem key={id} props={props} theme={theme} />
           ))}
         </>
       )}
