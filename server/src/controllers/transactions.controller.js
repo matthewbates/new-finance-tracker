@@ -4,6 +4,7 @@ const Transaction = require("../models/transactions.model");
 
 const postNewTransaction = (req, res, next) => {
   const userId = req.params.userId;
+  const { name, category, amount, date } = req.body;
 
   mongoose
     .model("User")
@@ -14,14 +15,13 @@ const postNewTransaction = (req, res, next) => {
           message: "User not found",
         });
       }
-
       // create a new transaction
       const transaction = new Transaction({
         _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
-        category: req.body.category,
-        amount: req.body.amount,
-        date: req.body.date,
+        name: name,
+        category: category,
+        amount: amount,
+        date: date,
         user: user._id,
       });
 
@@ -29,16 +29,18 @@ const postNewTransaction = (req, res, next) => {
         .save()
         .then((result) => {
           console.log(result);
+          const { _id, name, category, amount, date } = result;
           user.transactions.push(result._id);
+
           return user.save().then(() => {
             res.status(201).json({
               message: "Transaction recorded",
               createdTransaction: {
-                _id: result._id,
-                name: result.name,
-                category: result.category,
-                amount: result.amount,
-                date: result.date,
+                _id: _id,
+                name: name,
+                category: category,
+                amount: amount,
+                date: date,
               },
             });
           });
@@ -58,18 +60,26 @@ const getAllTransactions = (req, res, next) => {
   Transaction.find({ user: userId })
     .exec()
     .then((docs) => {
-      const response = {
-        transactions: docs.map((transaction) => {
-          return {
-            id: transaction._id,
-            name: transaction.name,
-            category: transaction.category,
-            amount: transaction.amount,
-            date: transaction.date,
-          };
-        }),
-      };
-      res.status(200).json(response);
+      console.log(docs);
+      // base case if the user has no recorded transaction
+      if (!docs || docs.length === 0) {
+        res.status(404).json({
+          message: "User has no recorded transactions",
+        });
+      } else {
+        const response = {
+          transactions: docs.map((transaction) => {
+            return {
+              id: transaction._id,
+              name: transaction.name,
+              category: transaction.category,
+              amount: transaction.amount,
+              date: transaction.date,
+            };
+          }),
+        };
+        res.status(200).json(response);
+      }
     })
     .catch((err) => {
       console.log(err);

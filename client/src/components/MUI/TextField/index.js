@@ -17,7 +17,6 @@ export const TextField = ({
   return (
     <MuiTextField
       error={error}
-      InputProps={InputProps}
       helperText={helperText}
       sx={sx}
       id={id}
@@ -26,6 +25,7 @@ export const TextField = ({
       name={name}
       type={type}
       onChange={onChange}
+      InputProps={InputProps}
       InputLabelProps={InputLabelProps}
     >
       {children}

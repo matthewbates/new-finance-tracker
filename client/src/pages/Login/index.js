@@ -51,7 +51,7 @@ export const Login = ({ setCurrentUser, theme }) => {
   return (
     <>
       <FormContainer>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} theme={theme}>
           <H2>Login to your account</H2>
           <TextField
             error={!validated.email}
@@ -87,6 +87,7 @@ export const Login = ({ setCurrentUser, theme }) => {
                     placement="left"
                   >
                     <IconButton
+                      sx={{ color: theme === "dark" && "#ffffff" }}
                       onClick={() =>
                         togglePassword(showPassword, setShowPassword)
                       }

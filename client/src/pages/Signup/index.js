@@ -59,7 +59,7 @@ export const Signup = ({ theme, setCurrentUser }) => {
 
   return (
     <FormContainer>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} theme={theme}>
         <H2>Create your account</H2>
         <TextField
           onChange={handleChange}

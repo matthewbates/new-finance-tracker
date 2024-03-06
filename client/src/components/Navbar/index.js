@@ -32,6 +32,8 @@ export const Navbar = ({
     };
   }, []);
 
+  console.log(currentUser);
+
   return (
     <NavbarContainer>
       {links.map(({ id, name, path }) => (

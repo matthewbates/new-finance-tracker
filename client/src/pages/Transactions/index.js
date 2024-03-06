@@ -24,20 +24,20 @@ export const Transactions = ({ currentUser, theme }) => {
   useEffect(() => {
     const getTransactions = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/transactions`);
-        if (response) {
-          setTransactions(response.data.transactions);
-        }
+        const response = await axios.get(
+          `http://localhost:8000/transactions/${currentUser[0]._id}`
+        );
+        setTransactions(response.data.transactions);
       } catch (error) {
         console.log(error);
       }
     };
     getTransactions();
-  }, []);
+  }, [currentUser]);
 
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 1500);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => setIsLoading(false), 1500);
+  // }, []);
 
   return (
     <>
@@ -47,15 +47,15 @@ export const Transactions = ({ currentUser, theme }) => {
         currentYear={currentYear}
         setCurrentYear={setCurrentYear}
       /> */}
-      {isLoading ? (
+      {/* {isLoading ? (
         <Loader theme={theme} />
-      ) : (
-        <>
-          {transactions.map(({ id, ...props }) => (
-            <TransactionItem key={id} props={props} theme={theme} />
-          ))}
-        </>
-      )}
+      ) : ( */}
+      <>
+        {transactions?.map(({ id, ...props }) => (
+          <TransactionItem key={id} props={props} theme={theme} />
+        ))}
+      </>
+      {/* )} */}
     </>
   );
 };
