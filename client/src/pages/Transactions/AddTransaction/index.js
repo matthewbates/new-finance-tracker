@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import axios from "axios";
 import dayjs from "dayjs";
 
@@ -16,20 +17,23 @@ import {
 import CancelIcon from "@mui/icons-material/Cancel";
 
 import { categoryOptions } from "../../../utils/transactions/data";
+import { Popover } from "../../../components/MUI/Popover";
+import { Add } from "../../../components/MUI/Add";
 
-export const AddTransaction = ({
-  setPopover,
-  transactions,
-  setTransactions,
-}) => {
+export const AddTransaction = ({ theme, transactions, setTransactions }) => {
   const [formData, setFormData] = useState({
     name: "",
     amount: "",
     category: "",
     date: "",
   });
+  const [popover, setPopover] = useState(false);
 
   const { name, amount, category, date } = formData;
+
+  const togglePopover = () => {
+    setPopover(!popover);
+  };
 
   const postTransaction = async (e) => {
     e.preventDefault();
@@ -41,7 +45,6 @@ export const AddTransaction = ({
         date: formattedDate,
       });
       if (response) {
-        console.log(response);
         setFormData({
           name: "",
           category: "",
@@ -92,79 +95,83 @@ export const AddTransaction = ({
   };
 
   return (
-    <Card
-      sx={{
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-      }}
-    >
-      <form onSubmit={postTransaction}>
-        <CardContent
+    <>
+      <Add toggle={togglePopover} theme={theme} />
+      {popover && (
+        <Card
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1em",
-
-            padding: "2em",
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
           }}
         >
-          <TextField
-            label="Name"
-            value={name}
-            name="name"
-            onChange={handleInputChange}
-          />
-          <FormControl>
-            <InputLabel>Category</InputLabel>
-            <Select
-              label="Category"
-              value={category}
-              name="category"
-              onChange={(e) => handleInputChange(e)}
-              type="text"
+          <form onSubmit={postTransaction}>
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "1em",
+
+                padding: "2em",
+              }}
             >
-              {categoryOptions.map(({ id, value }) => (
-                <MenuItem key={id} value={value}>
-                  {value}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <TextField
-            type="date"
-            value={date}
-            name="date"
-            onChange={handleInputChange}
-          />
-          <TextField
-            onChange={handleInputChange}
-            label="Amount"
-            value={amount}
-            name="amount"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">$</InputAdornment>
-              ),
+              <TextField
+                label="Name"
+                value={name}
+                name="name"
+                onChange={handleInputChange}
+              />
+              <FormControl>
+                <InputLabel>Category</InputLabel>
+                <Select
+                  label="Category"
+                  value={category}
+                  name="category"
+                  onChange={(e) => handleInputChange(e)}
+                  type="text"
+                >
+                  {categoryOptions.map(({ id, value }) => (
+                    <MenuItem key={id} value={value}>
+                      {value}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <TextField
+                type="date"
+                value={date}
+                name="date"
+                onChange={handleInputChange}
+              />
+              <TextField
+                onChange={handleInputChange}
+                label="Amount"
+                value={amount}
+                name="amount"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">$</InputAdornment>
+                  ),
+                }}
+              />
+              <Button variant="contained" type="submit">
+                Add
+              </Button>
+            </CardContent>
+          </form>
+          <CancelIcon
+            fontSize="medium"
+            sx={{
+              position: "absolute",
+              top: 0,
+              right: 0,
+              padding: "0.25em",
+              cursor: "pointer",
             }}
           />
-          <Button variant="contained" type="submit">
-            Add
-          </Button>
-        </CardContent>
-      </form>
-      {/* <CancelIcon
-        fontSize="medium"
-        sx={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          padding: "0.25em",
-          cursor: "pointer",
-        }}
-        onClick={() => setPopover(false)}
-      /> */}
-    </Card>
+        </Card>
+      )}
+    </>
   );
 };

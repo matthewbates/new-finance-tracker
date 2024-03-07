@@ -1,4 +1,4 @@
-import { ArrowConatiner } from "./ArrowItemElements";
+import { ArrowConatiner } from "./ArrowElements";
 
 import { LeftArrow } from "../../../components/MUI/LeftArrow";
 import { RightArrow } from "../../../components/MUI/RightArrow";
@@ -8,7 +8,7 @@ import {
   handleNextMonth,
 } from "../../../utils/transactions/helpers";
 
-export const ArrowItems = ({
+export const Arrows = ({
   currentMonth,
   setCurrentMonth,
   currentYear,

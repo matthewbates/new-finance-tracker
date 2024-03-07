@@ -13,24 +13,23 @@ export const Accessibility = ({
   return (
     <>
       <Tooltip title="Accessibility Menu" placement="right">
-        <AccessibilityNewIcon
-          onClick={toggleAccessibility}
-          fontSize="large"
+        <IconButton
           sx={{
             zIndex: 5,
             position: "absolute",
-            color: "#ffffff",
             bottom: 0,
             left: 0,
             margin: "0.5em",
             padding: "0.1em",
             cursor: "pointer",
-            background: "#1e88e5",
-            border:
-              theme === "light" ? "4px solid darkBlue" : "4px solid #ffffff",
-            borderRadius: "50%",
+            color: theme === "light" ? "#000000" : "#ffffff",
           }}
-        />
+        >
+          <AccessibilityNewIcon
+            onClick={toggleAccessibility}
+            fontSize="large"
+          />
+        </IconButton>
       </Tooltip>
       <AccessibilityMenu
         theme={theme}

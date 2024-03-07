@@ -65,9 +65,7 @@ const postNewUser = (req, res, next) => {
 };
 
 const postUserLogin = (req, res, next) => {
-  let _id = req.body._id;
-  let email = req.body.email;
-  let password = req.body.password;
+  const { email, password, transactions } = req.body;
 
   User.findOne({ email: email })
     .exec()
@@ -94,6 +92,7 @@ const postUserLogin = (req, res, next) => {
                 _id: user._id,
                 email: email,
                 password: password,
+                transactions: transactions,
               },
             ],
           });

@@ -2,60 +2,93 @@ import { useState, useEffect } from "react";
 
 import axios from "axios";
 
-import { Popover } from "./Popover";
 import { TransactionItem } from "./TransactionItem";
-import { ArrowItems } from "./ArrowItems";
+import { Arrows } from "./Arrows";
 
 import { Loader } from "../../components/Loader";
 
-import { NoTransactionsText } from "../../utils/transactions/styles";
-import {
-  listTransactionsByMonth,
-  transactionsForSelectedMonth,
-  someTransactionsForSelectedMonth,
-} from "../../utils/transactions/helpers";
+import { someTransactionsForSelectedMonth } from "../../utils/transactions/helpers";
+import { MONTHS } from "../../utils/transactions/data";
+import VOID from "../../assets/void.svg";
+import { Add } from "../../components/MUI/Add";
+import { AddTransaction } from "./AddTransaction";
 
 export const Transactions = ({ currentUser, theme }) => {
   const [transactions, setTransactions] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
+  console.log(transactions);
+
   useEffect(() => {
+    setIsLoading(true);
     const getTransactions = async () => {
       try {
         const response = await axios.get(
           `http://localhost:8000/transactions/${currentUser[0]._id}`
         );
-        setTransactions(response.data.transactions);
+        if (response) {
+          console.log(response);
+          const userTransactions = response.data.transactions;
+          setTransactions(userTransactions);
+        }
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     getTransactions();
   }, [currentUser]);
 
-  // useEffect(() => {
-  //   setTimeout(() => setIsLoading(false), 1500);
-  // }, []);
-
   return (
     <>
-      {/* <ArrowItems
+      <Arrows
+        transactions={transactions}
         currentMonth={currentMonth}
         setCurrentMonth={setCurrentMonth}
         currentYear={currentYear}
         setCurrentYear={setCurrentYear}
-      /> */}
-      {/* {isLoading ? (
+      />
+      {isLoading ? (
         <Loader theme={theme} />
-      ) : ( */}
-      <>
-        {transactions?.map(({ id, ...props }) => (
-          <TransactionItem key={id} props={props} theme={theme} />
-        ))}
-      </>
-      {/* )} */}
+      ) : someTransactionsForSelectedMonth(
+          transactions,
+          currentMonth,
+          currentYear
+        ) ? (
+        <TransactionItem
+          transactions={transactions}
+          currentMonth={currentMonth}
+          currentYear={currentYear}
+        />
+      ) : (
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            textAlign: "center",
+          }}
+        >
+          <img
+            src={VOID}
+            alt="void"
+            style={{ height: "auto", maxHeight: "250px", marginBottom: "1rem" }}
+          />
+          <p
+            style={{ letterSpacing: "0.15rem" }}
+            // MONTHS[index] - array indexing: a way to access a specific element in an array based on its position (index)
+          >{`No transactions recorded for ${MONTHS[currentMonth]}`}</p>
+        </div>
+      )}
+      <AddTransaction
+        theme={theme}
+        transactions={transactions}
+        setTransactions={setTransactions}
+      />
     </>
   );
 };

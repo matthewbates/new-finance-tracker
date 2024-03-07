@@ -30,7 +30,7 @@ const postNewTransaction = (req, res, next) => {
         .then((result) => {
           console.log(result);
           const { _id, name, category, amount, date } = result;
-          user.transactions.push(result._id);
+          // user.transactions.push(result._id);
 
           return user.save().then(() => {
             res.status(201).json({
