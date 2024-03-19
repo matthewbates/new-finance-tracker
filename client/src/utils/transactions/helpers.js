@@ -2,22 +2,21 @@
 export const listTransactionsByMonth = (transactions) => {
   if (!transactions || !transactions.length) return {};
 
-  // const sortedTransactions = transactions.sort(
-  //   (a, b) => Date.parse(a.date) - Date.parse(b.date)
-  // );
-
   const transactionByDate = {};
 
   for (let i = 0; i < transactions.length; i++) {
     const transaction = transactions[i];
 
-    const options = { weekday: "short", month: "long", day: "numeric" };
     const dateObj = new Date(Date.parse(transaction.date));
+    let dateString = dateObj.toLocaleDateString("en-US", {
+      weekday: "short",
+      month: "long",
+      day: "numeric",
+    });
 
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
-    let dateString = dateObj.toLocaleDateString("en-US", options);
 
     if (!transactionByDate[dateString]) {
       transactionByDate[dateString] = [];

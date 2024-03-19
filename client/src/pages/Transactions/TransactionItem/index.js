@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 import {
   TransactionContainer,
+  TransactionItems,
   TransactionName,
   TransactionAmount,
   TransactionDate,
@@ -19,8 +20,6 @@ export const TransactionItem = ({
   currentMonth,
   currentYear,
 }) => {
-  // const { name, category, date, amount } = props;
-
   // useEffect(() => {
   //   const adjustDate = () => {
   //     setShowDate(window.innerWidth >= 768);
@@ -37,23 +36,21 @@ export const TransactionItem = ({
   //   currentYear
   // );
 
-  console.log(Object.keys(listTransactionsByMonth(transactions)));
-
   return (
     <>
       {Object.keys(listTransactionsByMonth(transactions)).map((date, index) => (
-        <div key={index}>
-          <h4 style={{ padding: "0.5rem" }}>{date}</h4>
+        <TransactionContainer key={index}>
+          <h4>{date}</h4>
           {listTransactionsByMonth(transactions)[date].map(
-            ({ id, amount, name, category, date }) => (
-              <TransactionContainer key={id} theme={theme}>
+            ({ id, amount, name, category }) => (
+              <TransactionItems key={id} theme={theme}>
                 <TransactionName>{name}</TransactionName>
                 <Popover theme={theme} category={category} />
                 <TransactionAmount>${amount}</TransactionAmount>
-              </TransactionContainer>
+              </TransactionItems>
             )
           )}
-        </div>
+        </TransactionContainer>
       ))}
     </>
   );

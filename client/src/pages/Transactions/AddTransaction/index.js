@@ -20,14 +20,19 @@ import { categoryOptions } from "../../../utils/transactions/data";
 import { Popover } from "../../../components/MUI/Popover";
 import { Add } from "../../../components/MUI/Add";
 
-export const AddTransaction = ({ theme, transactions, setTransactions }) => {
+export const AddTransaction = ({
+  theme,
+  currentUser,
+  transactions,
+  setTransactions,
+}) => {
+  const [popover, setPopover] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     amount: "",
     category: "",
     date: "",
   });
-  const [popover, setPopover] = useState(false);
 
   const { name, amount, category, date } = formData;
 
@@ -40,11 +45,15 @@ export const AddTransaction = ({ theme, transactions, setTransactions }) => {
 
     try {
       const formattedDate = dayjs(formData.date).format("YYYY-MM-DDTHH:mm:ssZ");
-      const response = await axios.post("http://localhost:8000/transactions", {
-        ...formData,
-        date: formattedDate,
-      });
+      const response = await axios.post(
+        `http://localhost:8000/transactions/${currentUser[0]._id}`,
+        {
+          ...formData,
+          date: formattedDate,
+        }
+      );
       if (response) {
+        console.log(response);
         setFormData({
           name: "",
           category: "",
@@ -56,38 +65,13 @@ export const AddTransaction = ({ theme, transactions, setTransactions }) => {
           response.data.createdTransaction,
         ];
         setTransactions(updatedTransactions);
+        setPopover(false);
+        alert("Transaction created successfully!");
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  // const postTransaction = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const formattedDate = dayjs(formData.date).format("YYYY-MM-DDTHH:mm:ssZ");
-  //     const response = await axios.post("http://localhost:8000/transactions", {
-  //       ...formData,
-  //       date: formattedDate,
-  //     });
-  //     if (response) {
-  //       setFormData({
-  //         name: "",
-  //         amount: "",
-  //         category: "",
-  //         date: "",
-  //       });
-  //       const updatedTransactions = [
-  //         ...transactions,
-  //         response.data.transaction,
-  //       ];
-  //       setTransactions(updatedTransactions);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -161,6 +145,7 @@ export const AddTransaction = ({ theme, transactions, setTransactions }) => {
             </CardContent>
           </form>
           <CancelIcon
+            onClick={() => setPopover(false)}
             fontSize="medium"
             sx={{
               position: "absolute",

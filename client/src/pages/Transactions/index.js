@@ -76,7 +76,8 @@ export const Transactions = ({ currentUser, theme }) => {
           <img
             src={VOID}
             alt="void"
-            style={{ height: "auto", maxHeight: "250px", marginBottom: "1rem" }}
+            // style={{ height: "auto", maxHeight: "250px", marginBottom: "1rem" }}
+            style={{ height: "200px", marginBottom: "1rem" }}
           />
           <p
             style={{ letterSpacing: "0.15rem" }}
@@ -86,6 +87,7 @@ export const Transactions = ({ currentUser, theme }) => {
       )}
       <AddTransaction
         theme={theme}
+        currentUser={currentUser}
         transactions={transactions}
         setTransactions={setTransactions}
       />
