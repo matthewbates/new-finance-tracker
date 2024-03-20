@@ -27,6 +27,11 @@ const postNewUser = (req, res, next) => {
           message: "Passwords don't match",
         });
         //! ✅ WORKS
+      } else if (email.length === 0 || email === "") {
+        res.status(400).json({
+          message: "Email can't be blank",
+        });
+        //! ✅ WORKS
       } else if (password.length <= 7) {
         res.status(400).json({
           message: "Password cannot be less than eight characters",
