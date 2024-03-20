@@ -28,32 +28,27 @@ export const Login = ({ setCurrentUser, theme }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const email = formData?.email;
-    const password = formData?.password;
+    // const email = formData?.email;
+    // const password = formData?.password;
+    const email = formData.email;
+    const password = formData.password;
 
-    if (!email || !password) {
-      return;
-    }
+    // if (!email || !password) {
+    //   return;
+    // }
 
     try {
       const response = await axios.post("http://localhost:8000/users/account", {
         email,
         password,
       });
-      console.log("Response:", response);
-      const userData = response.data.user; // Access user data directly
-      if (userData) {
-        console.log("User data:", userData);
-        setCurrentUser(userData);
+      if (response) {
+        setCurrentUser(response.data.user);
         navigate("/");
-        localStorage.setItem("user", JSON.stringify(userData));
-      } else {
-        console.error("User data not found in response:", response.data);
-        // Handle case where user data is not available in the response
+        localStorage.setItem("user", JSON.stringify(response.data.user));
       }
     } catch (err) {
-      console.error("Error during login:", err);
-      alert("An error occurred during login. Please try again.");
+      alert(err.response.data.message);
     }
   };
 

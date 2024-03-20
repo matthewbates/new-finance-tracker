@@ -66,11 +66,11 @@ export default function App() {
           element={<Transactions currentUser={currentUser} theme={theme} />}
         />
       </Routes>
-      <Accessibility
+      {/* <Accessibility
         theme={theme}
         accessibility={accessibility}
         toggleAccessibility={toggleAccessibility}
-      />
+      /> */}
     </div>
   );
 }

@@ -19,8 +19,6 @@ export const Transactions = ({ currentUser, theme }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
-  console.log(transactions);
-
   useEffect(() => {
     setIsLoading(true);
     const getTransactions = async () => {

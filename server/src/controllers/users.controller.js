@@ -26,6 +26,11 @@ const postNewUser = (req, res, next) => {
         res.status(400).json({
           message: "Passwords don't match",
         });
+        //! ✅ WORKS
+      } else if (password.length <= 7) {
+        res.status(400).json({
+          message: "Password cannot be less than eight characters",
+        });
       } else {
         bcrypt.hash(password, saltRounds, (err, hash) => {
           if (err) {
@@ -75,16 +80,21 @@ const postUserLogin = (req, res, next) => {
         return res.status(404).json({
           message: "User not found",
         });
-      } else if (!user) {
       }
+
+      // Compare the provided password with the hashed password stored in the database
       bcrypt.compare(password, user.password, (err, result) => {
         if (err) {
+          console.log(err);
           return res.status(500).json({
             error: err,
           });
-        }
-        if (result) {
+        } else if (!result) {
           console.log(result);
+          res.status(401).json({
+            message: "Incorrect username/password",
+          });
+        } else {
           return res.status(200).json({
             message: "Login successful",
             user: [

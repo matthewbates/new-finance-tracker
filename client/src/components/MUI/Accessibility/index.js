@@ -16,11 +16,9 @@ export const Accessibility = ({
         <IconButton
           sx={{
             zIndex: 5,
-            position: "absolute",
+            position: "sticky",
             bottom: 0,
             left: 0,
-            margin: "0.5em",
-            padding: "0.1em",
             cursor: "pointer",
             color: theme === "light" ? "#000000" : "#ffffff",
           }}
