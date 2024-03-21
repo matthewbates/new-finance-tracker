@@ -16,26 +16,22 @@ import {
 import { Tooltip } from "../../components/MUI/Tooltip";
 import { TextField } from "../../components/MUI/TextField";
 import { Button } from "../../components/MUI/Button";
+import { Snackbar } from "../../components/MUI/Snackbar";
 
 import { handleChange, togglePassword } from "../../utils/login/helpers";
-import { initialLoginForm, initialValidation } from "../../utils/login/state";
 
 export const Login = ({ setCurrentUser, theme }) => {
-  const [formData, setFormData] = useState(initialLoginForm);
-  const [validated, setValidated] = useState(initialValidation);
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [validated, setValidated] = useState({ email: true, password: true });
   const [showPassword, setShowPassword] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const email = formData?.email;
-    // const password = formData?.password;
     const email = formData.email;
     const password = formData.password;
-
-    // if (!email || !password) {
-    //   return;
-    // }
 
     try {
       const response = await axios.post("http://localhost:8000/users/account", {
@@ -48,7 +44,9 @@ export const Login = ({ setCurrentUser, theme }) => {
         localStorage.setItem("user", JSON.stringify(response.data.user));
       }
     } catch (err) {
-      alert(err.response.data.message);
+      setOpen(true);
+      setMessage(err.response.data.message);
+      setTimeout(() => setOpen(false), 5000);
     }
   };
 
@@ -119,6 +117,12 @@ export const Login = ({ setCurrentUser, theme }) => {
           </SignupWrapper>
         </Form>
       </FormContainer>
+      <Snackbar
+        open={open}
+        severity="error"
+        sx={{ width: "100%" }}
+        message={message}
+      />
     </>
   );
 };

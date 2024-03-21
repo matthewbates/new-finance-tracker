@@ -77,17 +77,21 @@ const postNewUser = (req, res, next) => {
 const postUserLogin = (req, res, next) => {
   const { email, password, transactions } = req.body;
 
+  if (!email || !password) {
+    return res.status(400).json({
+      message: "Email and password are required",
+    });
+  }
+
   User.findOne({ email: email })
     .exec()
     .then((user) => {
       console.log(user);
       if (!user) {
         return res.status(404).json({
-          message: "User not found",
+          error: "Internal server error",
         });
       }
-
-      // Compare the provided password with the hashed password stored in the database
       bcrypt.compare(password, user.password, (err, result) => {
         if (err) {
           console.log(err);
@@ -95,11 +99,12 @@ const postUserLogin = (req, res, next) => {
             error: err,
           });
         } else if (!result) {
-          console.log(result);
+          // incorrect password
           res.status(401).json({
             message: "Incorrect username/password",
           });
         } else {
+          // passwords match, login successful
           return res.status(200).json({
             message: "Login successful",
             user: [

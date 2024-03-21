@@ -1,5 +1,11 @@
-import { Snackbar as MuiSnackbar } from "@mui/material";
+import { Snackbar as MuiSnackbar, Alert as MuiAlert } from "@mui/material";
 
-export const Snackbar = () => {
-  return <MuiSnackbar>index</MuiSnackbar>;
+export const Snackbar = ({ open, severity, sx, message }) => {
+  return (
+    <MuiSnackbar open={open}>
+      <MuiAlert severity={severity} sx={sx}>
+        {message}
+      </MuiAlert>
+    </MuiSnackbar>
+  );
 };
