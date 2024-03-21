@@ -69,7 +69,7 @@ export const Signup = ({ theme, setCurrentUser }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    testPasswordStrength({ ...formData, password: value }, setValidated);
+    testPasswordStrength({ ...formData, [name]: value }, setValidated);
   };
 
   return (
@@ -117,7 +117,7 @@ export const Signup = ({ theme, setCurrentUser }) => {
               Already have an account? <NavLink to="/login">Login</NavLink>
             </p>
           </SigninWrapper>
-          <Validated validated={validated} />
+          <Validated theme={theme} validated={validated} />
         </Form>
       </FormContainer>
 

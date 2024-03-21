@@ -9,9 +9,9 @@ export const Add = ({ theme, toggle }) => {
         onClick={toggle}
         sx={{
           zIndex: 5,
-          position: "sticky",
-          bottom: 0,
-          right: 0,
+          position: "fixed",
+          bottom: 10,
+          right: 10,
           float: "right",
           cursor: "pointer",
           color: theme === "light" ? "#000000" : "#ffffff",

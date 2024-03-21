@@ -13,43 +13,40 @@ import {
   listTransactionsByMonth,
   transactionsForSelectedMonth,
 } from "../../../utils/transactions/helpers";
+import { UpdateTransaction } from "../UpdateTransaction";
 
 export const TransactionItem = ({
   transactions,
+  setTransactions,
   theme,
   currentMonth,
   currentYear,
 }) => {
-  // useEffect(() => {
-  //   const adjustDate = () => {
-  //     setShowDate(window.innerWidth >= 768);
-  //   };
-
-  //   window.addEventListener("resize", adjustDate);
-  //   return () => {
-  //     window.removeEventListener("resize", adjustDate);
-  //   };
-  // }, []);
-  // const transactionsByMonth = listTransactionsByMonth(
-  //   transactionsForSelectedMonth,
-  //   currentMonth,
-  //   currentYear
-  // );
+  const filteredTransactions = transactionsForSelectedMonth(
+    transactions,
+    currentMonth,
+    currentYear
+  );
+  const transactionsByMonth = listTransactionsByMonth(filteredTransactions);
 
   return (
     <>
-      {Object.keys(listTransactionsByMonth(transactions)).map((date, index) => (
-        <TransactionContainer key={index}>
+      {Object.keys(transactionsByMonth).map((date) => (
+        <TransactionContainer key={date}>
           <h4>{date}</h4>
-          {listTransactionsByMonth(transactions)[date].map(
-            ({ id, amount, name, category }) => (
-              <TransactionItems key={id} theme={theme}>
-                <TransactionName>{name}</TransactionName>
-                <Popover theme={theme} category={category} />
-                <TransactionAmount>${amount}</TransactionAmount>
-              </TransactionItems>
-            )
-          )}
+          {transactionsByMonth[date].map(({ id, amount, name, category }) => (
+            <TransactionItems key={id} theme={theme}>
+              <TransactionName>{name}</TransactionName>
+              {/* <Popover theme={theme} category={category} /> */}
+              <UpdateTransaction
+                transactions={transactions}
+                setTransactions={setTransactions}
+                category={category}
+                id={id}
+              />
+              <TransactionAmount>${amount}</TransactionAmount>
+            </TransactionItems>
+          ))}
         </TransactionContainer>
       ))}
     </>

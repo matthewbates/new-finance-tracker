@@ -58,6 +58,7 @@ export const Transactions = ({ currentUser, theme }) => {
         ) ? (
         <TransactionItem
           transactions={transactions}
+          setTransactions={setTransactions}
           currentMonth={currentMonth}
           currentYear={currentYear}
         />

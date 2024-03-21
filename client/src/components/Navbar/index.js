@@ -34,13 +34,21 @@ export const Navbar = ({
 
   return (
     <NavbarContainer>
-      {links.map(({ id, name, path }) => (
-        <NavLinkWrapper key={id}>
-          <NavLink theme={theme} to={path}>
-            {name}
+      {!currentUser ? (
+        <NavLinkWrapper>
+          <NavLink theme={theme} to={"/"}>
+            Home
           </NavLink>
         </NavLinkWrapper>
-      ))}
+      ) : (
+        links.map(({ id, name, path }) => (
+          <NavLinkWrapper key={id}>
+            <NavLink theme={theme} to={path}>
+              {name}
+            </NavLink>
+          </NavLinkWrapper>
+        ))
+      )}
       <Burger isOpen={isOpen} toggleSidebar={toggleSidebar} theme={theme} />
       <div
         style={{
