@@ -107,7 +107,14 @@ export const Login = ({ setCurrentUser, theme }) => {
               label: theme === "dark" && { color: "#ffffff" },
             }}
           />
-          <Button type="submit" variant="contained">
+          <Button
+            type="submit"
+            variant={
+              formData.email && formData.password !== ""
+                ? "contained"
+                : "disabled"
+            }
+          >
             Sign in
           </Button>
           <SignupWrapper>

@@ -7,7 +7,9 @@ export const TransactionContainer = styled.div`
 export const TransactionItems = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 0.75rem;
+  align-items: center;
+
   /* display: flex;
   justify-content: space-between;
   align-items: center;

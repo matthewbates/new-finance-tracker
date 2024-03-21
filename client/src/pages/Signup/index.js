@@ -109,7 +109,14 @@ export const Signup = ({ theme, setCurrentUser }) => {
               border: theme === "dark" && { border: "1px solid #ffffff" },
             }}
           />
-          <Button type="submit" variant="contained">
+          <Button
+            type="submit"
+            variant={
+              formData.email && formData.password && formData.confirm !== ""
+                ? "contained"
+                : "disabled"
+            }
+          >
             Sign up
           </Button>
           <SigninWrapper>
