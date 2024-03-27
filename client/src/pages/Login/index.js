@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
+import GoogleButton from "react-google-button";
 
 import {
   FormContainer,
@@ -107,19 +108,30 @@ export const Login = ({ setCurrentUser, theme }) => {
               label: theme === "dark" && { color: "#ffffff" },
             }}
           />
-          <Button
-            type="submit"
-            variant={
-              formData.email && formData.password !== ""
-                ? "contained"
-                : "disabled"
-            }
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "1rem",
+            }}
           >
-            Sign in
-          </Button>
+            <Button
+              type="submit"
+              variant={
+                formData.email && formData.password !== ""
+                  ? "contained"
+                  : "disabled"
+              }
+            >
+              Sign in
+            </Button>
+          </div>
           <SignupWrapper>
             <p>
-              Don't have an account? <NavLink to="/signup">Sign up</NavLink>
+              Don't have an account?{" "}
+              <NavLink theme={theme} to="/signup">
+                Sign up
+              </NavLink>
             </p>
           </SignupWrapper>
         </Form>

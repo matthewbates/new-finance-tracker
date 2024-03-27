@@ -58,7 +58,10 @@ export const UpdateTransaction = ({
       </Button>
       <Menu
         open={open}
-        onClose={() => handleClose(setCategoryOption)}
+        onClose={() => {
+          handleClose(setCategoryOption);
+          setTimeout(() => setSearchTerm(""), 250);
+        }}
         anchorEl={categoryOption}
       >
         <Input

@@ -10,23 +10,22 @@ export const listTransactionsByMonth = (transactions) => {
 
   for (let i = 0; i < sortedTransactions.length; i++) {
     const transaction = sortedTransactions[i];
-
-    const options = { weekday: "short", month: "long", day: "numeric" };
     const dateObj = new Date(Date.parse(transaction.date));
 
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
 
-    let dateString;
-
-    if (dateObj.toDateString() === today.toDateString()) {
-      dateString = "Today";
-    } else if (dateObj.toDateString() === yesterday.toDateString()) {
-      dateString = "Yesterday";
-    } else {
-      dateString = dateObj.toLocaleDateString("en-US", options);
-    }
+    let dateString =
+      dateObj.toDateString() === today.toDateString()
+        ? "Today"
+        : dateObj.toDateString() === yesterday.toDateString()
+        ? "Yesterday"
+        : dateObj.toLocaleDateString("en-US", {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+          });
 
     if (!transactionByDate[dateString]) {
       transactionByDate[dateString] = [];

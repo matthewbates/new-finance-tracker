@@ -59,7 +59,13 @@ export default function App() {
 
         <Route
           path="/profile"
-          element={<Profile theme={theme} setCurrentUser={setCurrentUser} />}
+          element={
+            <Profile
+              theme={theme}
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            />
+          }
         />
         <Route
           path={"/transactions"}

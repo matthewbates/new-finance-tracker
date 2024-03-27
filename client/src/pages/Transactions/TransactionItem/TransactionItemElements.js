@@ -27,7 +27,6 @@ export const TransactionItems = styled.div`
 
   @media screen and (min-width: 768px) {
     font-size: 18px;
-    /* justify-content: space-evenly; */
   }
 `;
 

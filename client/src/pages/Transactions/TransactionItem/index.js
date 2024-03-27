@@ -37,7 +37,6 @@ export const TransactionItem = ({
           {transactionsByMonth[date].map(({ id, amount, name, category }) => (
             <TransactionItems key={id} theme={theme}>
               <TransactionName>{name}</TransactionName>
-              {/* <Popover theme={theme} category={category} /> */}
               <UpdateTransaction
                 transactions={transactions}
                 setTransactions={setTransactions}

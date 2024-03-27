@@ -37,7 +37,7 @@ export const SignupWrapper = styled.div`
 `;
 
 export const NavLink = styled(Link)`
-  color: blue;
+  color: ${({ theme }) => (theme === "light" ? "blue" : "#ffffff")};
   text-decoration: none;
   font-weight: bold;
 
