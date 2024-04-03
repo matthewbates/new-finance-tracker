@@ -39,7 +39,9 @@ export const Form = styled.form`
   @media screen and (min-width: 768px) {
     display: flex;
     justify-content: center;
+    margin: auto;
     width: 50%;
+    max-width: 550px;
     /* width: 100%; */
     /* position: absolute;
     padding: 4rem;
