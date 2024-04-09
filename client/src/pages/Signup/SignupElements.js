@@ -42,16 +42,6 @@ export const Form = styled.form`
     margin: auto;
     width: 50%;
     max-width: 550px;
-    /* width: 100%; */
-    /* position: absolute;
-    padding: 4rem;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: ${({ theme }) =>
-      theme === "light" && "rgba(0, 0, 0, 0.1) 0 0 10px 5px"};
-    border-radius: 0.5rem;
-    max-width: 450px; */
   }
 `;
 

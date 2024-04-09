@@ -1,8 +1,26 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const FormContainer = styled.div`
+export const LoginContainer = styled.div`
   display: flex;
+  flex-direction: row-reverse;
+`;
+
+export const RightContainer = styled.div`
+  display: none;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100vh;
+    background: #a9adc1;
+  }
+`;
+
+export const RightHeroImg = styled.img`
+  width: 250px;
 `;
 
 export const Form = styled.form`
@@ -13,15 +31,11 @@ export const Form = styled.form`
   width: 100%;
 
   @media screen and (min-width: 768px) {
-    position: absolute;
-    padding: 4rem;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: ${({ theme }) =>
-      theme === "light" && "rgba(0, 0, 0, 0.1) 0 0 10px 5px"};
-    border-radius: 0.5rem;
-    max-width: 450px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 50%;
+    max-width: 550px;
   }
 `;
 

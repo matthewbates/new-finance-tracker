@@ -32,16 +32,6 @@ export const Signup = ({ theme, setCurrentUser }) => {
   const [validated, setValidated] = useState({});
   const navigate = useNavigate();
 
-  // loads the google login/signup <button>
-  // const handleCredentialResponse = (response) => {
-  //   window.onLoad = () => {
-  //     google.accounts.id.initialize({
-  //       client_id: "",
-  //       callback: handleCredentialResponse,
-  //     });
-  //   };
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = formData.email;

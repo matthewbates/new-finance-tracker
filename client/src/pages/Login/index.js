@@ -4,15 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
-import GoogleButton from "react-google-button";
 
 import {
-  FormContainer,
+  LoginContainer,
+  RightContainer,
+  RightHeroImg,
   Form,
   H2,
   SignupWrapper,
   NavLink,
 } from "./LoginElements";
+
+import login from "../../assets/login.svg";
 
 import { Tooltip } from "../../components/MUI/Tooltip";
 import { TextField } from "../../components/MUI/TextField";
@@ -52,96 +55,93 @@ export const Login = ({ setCurrentUser, theme }) => {
   };
 
   return (
-    <>
-      <FormContainer>
-        <Form onSubmit={handleSubmit} theme={theme}>
-          <H2>Login to your account</H2>
-          <TextField
-            error={!validated.email}
-            helperText={!validated.email && "Email cannot be blank"}
-            label="Email"
-            name="email"
-            value={formData.email}
-            onChange={(e) =>
-              handleChange(e, formData, setFormData, setValidated)
-            }
-            sx={{
-              input: theme === "dark" && { color: "#ffffff" },
-              label: theme === "dark" && { color: "#ffffff" },
-              border: theme === "dark" &&
-                validated.email && { border: "1px solid #ffffff" },
-            }}
-          />
-          <TextField
-            error={!validated.password}
-            helperText={!validated.password && "Password cannot be blank"}
-            type={showPassword ? "text" : "password"}
-            label="Password"
-            name="password"
-            value={formData.password}
-            onChange={(e) =>
-              handleChange(e, formData, setFormData, setValidated)
-            }
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Tooltip
-                    title={showPassword ? "Show" : "Hide"}
-                    placement="left"
+    <LoginContainer>
+      <RightContainer>
+        <RightHeroImg src={login} />
+      </RightContainer>
+      <Form onSubmit={handleSubmit} theme={theme}>
+        <H2>Login to your account</H2>
+        <TextField
+          error={!validated.email}
+          helperText={!validated.email && "Email cannot be blank"}
+          label="Email"
+          name="email"
+          value={formData.email}
+          onChange={(e) => handleChange(e, formData, setFormData, setValidated)}
+          sx={{
+            input: theme === "dark" && { color: "#ffffff" },
+            label: theme === "dark" && { color: "#ffffff" },
+            border: theme === "dark" &&
+              validated.email && { border: "1px solid #ffffff" },
+          }}
+        />
+        <TextField
+          error={!validated.password}
+          helperText={!validated.password && "Password cannot be blank"}
+          type={showPassword ? "text" : "password"}
+          label="Password"
+          name="password"
+          value={formData.password}
+          onChange={(e) => handleChange(e, formData, setFormData, setValidated)}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Tooltip
+                  title={showPassword ? "Show" : "Hide"}
+                  placement="left"
+                >
+                  <IconButton
+                    sx={{ color: theme === "dark" && "#ffffff" }}
+                    onClick={() =>
+                      togglePassword(showPassword, setShowPassword)
+                    }
                   >
-                    <IconButton
-                      sx={{ color: theme === "dark" && "#ffffff" }}
-                      onClick={() =>
-                        togglePassword(showPassword, setShowPassword)
-                      }
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
-            sx={{
-              border: theme === "dark" &&
-                validated.password && { border: "1px solid #ffffff" },
-              input: theme === "dark" && { color: "#ffffff" },
-              label: theme === "dark" && { color: "#ffffff" },
-            }}
-          />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "1rem",
-            }}
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </Tooltip>
+              </InputAdornment>
+            ),
+          }}
+          sx={{
+            border: theme === "dark" &&
+              validated.password && { border: "1px solid #ffffff" },
+            input: theme === "dark" && { color: "#ffffff" },
+            label: theme === "dark" && { color: "#ffffff" },
+          }}
+        />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "1rem",
+          }}
+        >
+          <Button
+            type="submit"
+            variant={
+              formData.email && formData.password !== ""
+                ? "contained"
+                : "disabled"
+            }
           >
-            <Button
-              type="submit"
-              variant={
-                formData.email && formData.password !== ""
-                  ? "contained"
-                  : "disabled"
-              }
-            >
-              Sign in
-            </Button>
-          </div>
-          <SignupWrapper>
-            <p>
-              Don't have an account?{" "}
-              <NavLink theme={theme} to="/signup">
-                Sign up
-              </NavLink>
-            </p>
-          </SignupWrapper>
-        </Form>
-      </FormContainer>
+            Sign in
+          </Button>
+        </div>
+        <SignupWrapper>
+          <p>
+            Don't have an account?{" "}
+            <NavLink theme={theme} to="/signup">
+              Sign up
+            </NavLink>
+          </p>
+        </SignupWrapper>
+      </Form>
       <Snackbar
         open={open}
         severity="error"
         sx={{ width: "100%" }}
         message={message}
       />
-    </>
+    </LoginContainer>
   );
 };
