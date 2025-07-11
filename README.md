@@ -12,6 +12,7 @@ A fullstack, mobile-responsive web application designed to help users track and 
 
   - Secure signup and login with password hashing.
   - Comprehensive error handling for username and password requirements.
+  - Exportable reports (PDF, Excel)
 
 - **Expense Tracking:**
 
@@ -47,7 +48,7 @@ A fullstack, mobile-responsive web application designed to help users track and 
 
 **Database:**
 
-- [Specify database: MongoDB, MySQL, etc. — Update as applicable]
+- MongoDB Atlas
 
 ## Installation & Setup
 
@@ -72,11 +73,7 @@ A fullstack, mobile-responsive web application designed to help users track and 
    npm install
    ```
 
-4. Configure environment variables:
-
-   - Create a `.env` file in the backend with required secrets (JWT_SECRET, DB connection string, etc.).
-
-5. Run the application:
+4. Run the application:
 
    ```bash
    cd backend
@@ -91,7 +88,6 @@ A fullstack, mobile-responsive web application designed to help users track and 
 ## Future Enhancements
 
 - AI-driven budgeting tips and spending suggestions
-- Exportable reports (PDF, Excel)
 - Multi-currency support
 
 ## Contributing
