@@ -1,94 +1,107 @@
-Finance Tracker
+# Finance Tracker
 
 A fullstack, mobile-responsive web application designed to help users track and categorize their expenses, set budgets, and gain better financial insights.
 
-Live Demo
+## Live Demo
 
 [Insert Live Link Here]
 
-Features
+## Features
 
-User Authentication:
+- **User Authentication:**
 
-Secure signup and login with password hashing.
+  - Secure signup and login with password hashing.
+  - Comprehensive error handling for username and password requirements.
 
-Comprehensive error handling for username and password requirements.
+- **Expense Tracking:**
 
-Expense Tracking:
+  - Add transactions including cost, category, date, and amount.
+  - Transactions are persisted and organized by day, month, and year.
 
-Add transactions including cost, category, date, and amount.
+- **Data Visualization:**
 
-Transactions are persisted and organized by day, month, and year.
+  - Visualize spending patterns using **ApexCharts.js**.
+  - Month-to-month expenditure breakdowns by category.
 
-Data Visualization:
+- **Custom Categories:**
 
-Visualize spending patterns using ApexCharts.js.
+  - Add personalized expense categories beyond the default options.
 
-Month-to-month expenditure breakdowns by category.
+- **Budget Management:**
 
-Custom Categories:
+  - Set monthly spending limits for each category.
+  - Receive notifications when nearing or exceeding category budgets.
 
-Add personalized expense categories beyond the default options.
+## Tech Stack
 
-Budget Management:
+**Frontend:**
 
-Set monthly spending limits for each category.
+- React
+- CSS / Styled Components
+- ApexCharts.js
 
-Receive notifications when nearing or exceeding category budgets.
+**Backend:**
 
-Tech Stack
+- Node.js
+- Express.js
 
-Frontend:
+**Database:**
 
-React
+- [Specify database: MongoDB, MySQL, etc. — Update as applicable]
 
-CSS / Styled Components
+## Installation & Setup
 
-ApexCharts.js
+1. Clone the repository:
 
-Backend:
+   ```bash
+   git clone https://github.com/yourusername/finance-tracker.git
+   cd finance-tracker
+   ```
 
-Node.js
+2. Install backend dependencies:
 
-Express.js
+   ```bash
+   cd backend
+   npm install
+   ```
 
-Database:
+3. Install frontend dependencies:
 
-[Specify database: MongoDB, MySQL, etc. — Update as applicable]
+   ```bash
+   cd ../frontend
+   npm install
+   ```
 
-Installation & Setup
+4. Configure environment variables:
 
-Clone the repository:
+   - Create a `.env` file in the backend with required secrets (JWT_SECRET, DB connection string, etc.).
 
-git clone https://github.com/yourusername/finance-tracker.git
-cd finance-tracker
+5. Run the application:
 
-Install backend dependencies:
+   ```bash
+   cd backend
+   npm start
+   ```
 
-cd backend
-npm install
+   ```bash
+   cd frontend
+   npm start
+   ```
 
-Install frontend dependencies:
+## Future Enhancements
 
-cd ../frontend
-npm install
+- AI-driven budgeting tips and spending suggestions
+- Exportable reports (PDF, Excel)
+- Multi-currency support
 
-Configure environment variables:
+## Contributing
 
-Create a .env file in the backend with required secrets (JWT_SECRET, DB connection string, etc.).
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Run the application:
+## License
 
-cd backend
-npm start
+[MIT](https://choosealicense.com/licenses/mit/)
 
-cd frontend
-npm start
+---
 
-Future Enhancements
-
-AI-driven budgeting tips and spending suggestions
-
-Exportable reports (PDF, Excel)
-
-Multi-currency support
+Built with passion to help users gain control over their finances.
