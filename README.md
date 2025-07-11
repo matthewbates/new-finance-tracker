@@ -4,7 +4,7 @@ A fullstack, mobile-responsive web application designed to help users track and 
 
 ## Live Demo
 
-[Insert Live Link Here]
+Live demo is coming soon!
 
 ## Features
 
